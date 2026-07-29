@@ -67,7 +67,9 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
       return;
     }
 
-    final title = _titleController.text.trim().isEmpty ? null : _titleController.text.trim();
+    final title = _titleController.text.trim().isEmpty
+        ? null
+        : _titleController.text.trim();
 
     if (widget.preselectedRoomId != null) {
       Navigator.of(context).push(
@@ -111,7 +113,7 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Tell us what you need.', style: AppTypography.body(color: AppColors.textMuted)),
+              Text('Tell us what you need.', style: AppTypography.authBody()),
               const SizedBox(height: AppSpacing.xxl),
               AppTextField(
                 label: 'Meeting title',
@@ -122,14 +124,18 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
               _FieldTile(
                 icon: Iconsax.calendar_1,
                 label: 'Date',
-                value: _date == null ? 'Select date' : DateTimeFormat.friendlyDate(_date!),
+                value: _date == null
+                    ? 'Select date'
+                    : DateTimeFormat.friendlyDate(_date!),
                 onTap: _pickDate,
               ),
               const SizedBox(height: AppSpacing.md),
               _FieldTile(
                 icon: Iconsax.clock,
                 label: 'Time',
-                value: _startTime == null ? 'Select time' : DateTimeFormat.time(_startTime!),
+                value: _startTime == null
+                    ? 'Select time'
+                    : DateTimeFormat.time(_startTime!),
                 onTap: _pickTime,
               ),
               const SizedBox(height: AppSpacing.xl),
@@ -139,17 +145,22 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.sm,
                 children: _durationOptions
-                    .map((d) => SelectableChip(
-                          label: _durationLabel(d),
-                          selected: _duration == d,
-                          onTap: () => setState(() => _duration = d),
-                        ))
+                    .map(
+                      (d) => SelectableChip(
+                        label: _durationLabel(d),
+                        selected: _duration == d,
+                        onTap: () => setState(() => _duration = d),
+                      ),
+                    )
                     .toList(),
               ),
               const SizedBox(height: AppSpacing.xl),
               Text('Number of attendees', style: AppTypography.sectionTitle()),
               const SizedBox(height: AppSpacing.sm),
-              CounterStepper(value: _attendees, onChanged: (v) => setState(() => _attendees = v)),
+              CounterStepper(
+                value: _attendees,
+                onChanged: (v) => setState(() => _attendees = v),
+              ),
               const SizedBox(height: AppSpacing.xl),
               Row(
                 children: [
@@ -163,13 +174,17 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.sm,
                 children: RoomFacility.values
-                    .map((f) => SelectableChip(
-                          label: f.label,
-                          selected: _facilities.contains(f),
-                          onTap: () => setState(
-                            () => _facilities.contains(f) ? _facilities.remove(f) : _facilities.add(f),
-                          ),
-                        ))
+                    .map(
+                      (f) => SelectableChip(
+                        label: f.label,
+                        selected: _facilities.contains(f),
+                        onTap: () => setState(
+                          () => _facilities.contains(f)
+                              ? _facilities.remove(f)
+                              : _facilities.add(f),
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
               const SizedBox(height: AppSpacing.xxxl),
@@ -183,7 +198,12 @@ class _BookingCriteriaScreenState extends State<BookingCriteriaScreen> {
 }
 
 class _FieldTile extends StatelessWidget {
-  const _FieldTile({required this.icon, required this.label, required this.value, required this.onTap});
+  const _FieldTile({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.onTap,
+  });
 
   final IconData icon;
   final String label;
@@ -196,7 +216,10 @@ class _FieldTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.sm),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.md,
+        ),
         decoration: BoxDecoration(
           color: AppColors.surface,
           border: Border.all(color: AppColors.borderStrong),
@@ -210,7 +233,11 @@ class _FieldTile extends StatelessWidget {
             const Spacer(),
             Text(value, style: AppTypography.body()),
             const SizedBox(width: AppSpacing.xs),
-            const Icon(Iconsax.arrow_right_3, size: 16, color: AppColors.textMutedAlt),
+            const Icon(
+              Iconsax.arrow_right_3,
+              size: 16,
+              color: AppColors.textMutedAlt,
+            ),
           ],
         ),
       ),

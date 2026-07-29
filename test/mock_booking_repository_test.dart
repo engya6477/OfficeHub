@@ -8,8 +8,13 @@ import 'package:officehub/data/repositories/mock_room_repository.dart';
 /// from now, so tests never fail due to falling on a past/weekend date.
 DateTime _nextBusinessDay({int minDaysAhead = 3}) {
   var date = DateTime.now().add(Duration(days: minDaysAhead));
-  while (![DateTime.sunday, DateTime.monday, DateTime.tuesday, DateTime.wednesday, DateTime.thursday]
-      .contains(date.weekday)) {
+  while (![
+    DateTime.sunday,
+    DateTime.monday,
+    DateTime.tuesday,
+    DateTime.wednesday,
+    DateTime.thursday,
+  ].contains(date.weekday)) {
     date = date.add(const Duration(days: 1));
   }
   return DateTime(date.year, date.month, date.day);
@@ -137,7 +142,10 @@ void main() {
     );
 
     expect(
-      () => repository.cancelBooking(bookingId: booking.id, employeeId: otherEmployeeId),
+      () => repository.cancelBooking(
+        bookingId: booking.id,
+        employeeId: otherEmployeeId,
+      ),
       throwsA(isA<BookingException>()),
     );
   });
@@ -155,7 +163,13 @@ void main() {
 
     repository.cancelBooking(bookingId: booking.id, employeeId: employeeId);
 
-    expect(repository.getUpcoming(employeeId).map((b) => b.id), isNot(contains(booking.id)));
-    expect(repository.getHistory(employeeId).map((b) => b.id), contains(booking.id));
+    expect(
+      repository.getUpcoming(employeeId).map((b) => b.id),
+      isNot(contains(booking.id)),
+    );
+    expect(
+      repository.getHistory(employeeId).map((b) => b.id),
+      contains(booking.id),
+    );
   });
 }

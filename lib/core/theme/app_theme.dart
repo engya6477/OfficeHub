@@ -27,11 +27,16 @@ abstract final class AppTheme {
         iconTheme: const IconThemeData(color: AppColors.textPrimary),
         titleTextStyle: AppTypography.screenTitle(),
       ),
-      textSelectionTheme: const TextSelectionThemeData(cursorColor: AppColors.primary),
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.primary,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.md,
+        ),
         hintStyle: AppTypography.bodyPlaceholder(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.sm),
@@ -60,7 +65,9 @@ abstract final class AppTheme {
           foregroundColor: AppColors.onPrimary,
           disabledBackgroundColor: AppColors.disabledFieldBackground,
           minimumSize: const Size.fromHeight(48),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.sm)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.sm),
+          ),
           textStyle: AppTypography.buttonLabel(),
           elevation: 0,
         ),
@@ -70,7 +77,9 @@ abstract final class AppTheme {
           foregroundColor: AppColors.primary,
           side: const BorderSide(color: AppColors.primary),
           minimumSize: const Size.fromHeight(44),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.sm)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.sm),
+          ),
           textStyle: AppTypography.buttonLabel(color: AppColors.primary),
         ),
       ),
@@ -80,11 +89,17 @@ abstract final class AppTheme {
           textStyle: AppTypography.buttonLabel(color: AppColors.primary),
         ),
       ),
-      dividerTheme: const DividerThemeData(color: AppColors.divider, thickness: 0.75, space: 1),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.divider,
+        thickness: 0.75,
+        space: 1,
+      ),
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppRadius.xl),
+          ),
         ),
       ),
     );

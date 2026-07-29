@@ -21,18 +21,29 @@ class AuthController extends ChangeNotifier {
   Future<bool> signIn({required String email, required String password}) =>
       _run(() => _sessionRepository.signIn(email: email, password: password));
 
-  Future<bool> signUp({required String name, required String email, required String password}) =>
-      _run(() => _sessionRepository.signUp(name: name, email: email, password: password));
+  Future<bool> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) => _run(
+    () =>
+        _sessionRepository.signUp(name: name, email: email, password: password),
+  );
 
-  Future<bool> sendPasswordReset({required String email}) =>
-      _run(() => _sessionRepository.sendPasswordReset(email: email), authenticateOnSuccess: false);
+  Future<bool> sendPasswordReset({required String email}) => _run(
+    () => _sessionRepository.sendPasswordReset(email: email),
+    authenticateOnSuccess: false,
+  );
 
   void signOut() {
     _status = AuthStatus.unauthenticated;
     notifyListeners();
   }
 
-  Future<bool> _run(Future<void> Function() action, {bool authenticateOnSuccess = true}) async {
+  Future<bool> _run(
+    Future<void> Function() action, {
+    bool authenticateOnSuccess = true,
+  }) async {
     isLoading = true;
     errorMessage = null;
     notifyListeners();

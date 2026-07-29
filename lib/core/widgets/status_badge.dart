@@ -23,8 +23,14 @@ class StatusBadge extends StatelessWidget {
     };
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(AppRadius.md)),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.xs,
+      ),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(AppRadius.md),
+      ),
       child: Text(label, style: AppTypography.cardMeta(color: fg)),
     );
   }

@@ -6,7 +6,8 @@ class MockSessionRepository implements SessionRepository {
   @override
   Employee get currentEmployee => MockSeed.currentEmployee;
 
-  Future<void> _simulateRoundTrip() => Future.delayed(const Duration(milliseconds: 500));
+  Future<void> _simulateRoundTrip() =>
+      Future.delayed(const Duration(milliseconds: 500));
 
   @override
   Future<void> signIn({required String email, required String password}) async {
@@ -17,10 +18,18 @@ class MockSessionRepository implements SessionRepository {
   }
 
   @override
-  Future<void> signUp({required String name, required String email, required String password}) async {
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     await _simulateRoundTrip();
-    if (name.trim().isEmpty || email.trim().isEmpty || password.trim().isEmpty) {
-      throw const AuthException('Please complete all fields to create your account.');
+    if (name.trim().isEmpty ||
+        email.trim().isEmpty ||
+        password.trim().isEmpty) {
+      throw const AuthException(
+        'Please complete all fields to create your account.',
+      );
     }
   }
 

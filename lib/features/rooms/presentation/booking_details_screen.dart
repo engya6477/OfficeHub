@@ -23,10 +23,18 @@ class BookingDetailsScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Cancel booking?'),
-        content: const Text('This booking will be cancelled and moved to your history.'),
+        content: const Text(
+          'This booking will be cancelled and moved to your history.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Keep booking')),
-          TextButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('Cancel booking')),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Keep booking'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Cancel booking'),
+          ),
         ],
       ),
     );
@@ -37,7 +45,9 @@ class BookingDetailsScreen extends StatelessWidget {
       if (context.mounted) Navigator.of(context).pop();
     } on BookingException catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
       }
     }
   }
@@ -76,12 +86,17 @@ class BookingDetailsScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(room?.name ?? 'Room', style: AppTypography.heading().copyWith(fontSize: 22))),
+                  Expanded(
+                    child: Text(
+                      room?.name ?? 'Room',
+                      style: AppTypography.feedbackTitle(),
+                    ),
+                  ),
                   StatusBadge(label: booking.displayStatusLabel, tone: tone),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(room?.location ?? '', style: AppTypography.cardMeta(color: AppColors.textMuted)),
+              Text(room?.location ?? '', style: AppTypography.authBody()),
               const SizedBox(height: AppSpacing.xl),
               Container(
                 width: double.infinity,
@@ -95,18 +110,30 @@ class BookingDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _Row('Date', DateTimeFormat.friendlyDate(booking.date)),
-                    _Row('Time', DateTimeFormat.timeRange(booking.startTime, booking.endTime)),
+                    _Row(
+                      'Time',
+                      DateTimeFormat.timeRange(
+                        booking.startTime,
+                        booking.endTime,
+                      ),
+                    ),
                     _Row('Attendees', '${booking.attendees} people'),
                     _Row(
                       'Facilities',
-                      booking.facilities.isEmpty ? 'None requested' : booking.facilities.map((f) => f.label).join(', '),
+                      booking.facilities.isEmpty
+                          ? 'None requested'
+                          : booking.facilities.map((f) => f.label).join(', '),
                     ),
                   ],
                 ),
               ),
               const Spacer(),
               if (booking.isCancellable) ...[
-                AppButton(label: 'Edit booking', variant: AppButtonVariant.outline, onPressed: () => _edit(context, booking)),
+                AppButton(
+                  label: 'Edit booking',
+                  variant: AppButtonVariant.outline,
+                  onPressed: () => _edit(context, booking),
+                ),
                 const SizedBox(height: AppSpacing.sm),
                 AppButton(
                   label: 'Cancel',
@@ -133,7 +160,7 @@ class _Row extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: AppTypography.body(color: AppColors.textMuted))),
+          Expanded(child: Text(label, style: AppTypography.authBody())),
           Text(value, style: AppTypography.listTitle()),
         ],
       ),

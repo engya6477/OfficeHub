@@ -37,14 +37,27 @@ class _SplashScreenState extends State<SplashScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.surface,
                   borderRadius: BorderRadius.circular(AppRadius.xl),
-                  boxShadow: [BoxShadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 0, spreadRadius: 1)],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      blurRadius: 0,
+                      spreadRadius: 1,
+                    ),
+                  ],
                 ),
-                child: const Icon(Iconsax.calendar_1, color: AppColors.primary, size: 40),
+                child: const Icon(
+                  Iconsax.calendar_1,
+                  color: AppColors.primary,
+                  size: 40,
+                ),
               ),
               const SizedBox(height: AppSpacing.xxl),
               Text('OfficeHub', style: AppTypography.heroTitle()),
               const SizedBox(height: AppSpacing.xs),
-              Text('Your workplace, simplified', style: AppTypography.heroSubtitle()),
+              Text(
+                'Your workplace, simplified',
+                style: AppTypography.heroSubtitle(),
+              ),
             ],
           ),
         ),

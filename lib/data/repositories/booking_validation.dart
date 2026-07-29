@@ -15,18 +15,34 @@ abstract final class BookingValidation {
     DateTime? now,
   }) {
     if (!BusinessHours.isBusinessDay(date)) {
-      throw const BookingException('Rooms can only be booked Sunday to Thursday.');
+      throw const BookingException(
+        'Rooms can only be booked Sunday to Thursday.',
+      );
     }
-    if (!BusinessHours.isWithinBusinessHours(startTime, durationMinutes: durationMinutes)) {
-      throw const BookingException('Bookings must fall within business hours (8:00 AM - 6:00 PM).');
+    if (!BusinessHours.isWithinBusinessHours(
+      startTime,
+      durationMinutes: durationMinutes,
+    )) {
+      throw const BookingException(
+        'Bookings must fall within business hours (8:00 AM - 6:00 PM).',
+      );
     }
-    final slotStart = DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute);
+    final slotStart = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      startTime.hour,
+      startTime.minute,
+    );
     if (slotStart.isBefore(now ?? DateTime.now())) {
       throw const BookingException('Bookings cannot be created in the past.');
     }
   }
 
-  static void assertFitsCapacity({required int capacity, required int attendees}) {
+  static void assertFitsCapacity({
+    required int capacity,
+    required int attendees,
+  }) {
     if (capacity < attendees) {
       throw BookingException('This room only fits up to $capacity attendees.');
     }

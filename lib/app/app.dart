@@ -25,16 +25,24 @@ class OfficeHubApp extends StatelessWidget {
       providers: [
         Provider<RoomRepository>(create: (_) => MockRoomRepository()),
         Provider<SessionRepository>(create: (_) => MockSessionRepository()),
-        Provider<BookingRepository>(create: (ctx) => MockBookingRepository(ctx.read<RoomRepository>())),
+        Provider<BookingRepository>(
+          create: (ctx) => MockBookingRepository(ctx.read<RoomRepository>()),
+        ),
         Provider<VisitRepository>(create: (_) => MockVisitRepository()),
         ChangeNotifierProvider<AuthController>(
           create: (ctx) => AuthController(ctx.read<SessionRepository>()),
         ),
         ChangeNotifierProvider<BookingsController>(
-          create: (ctx) => BookingsController(ctx.read<BookingRepository>(), MockSeed.currentEmployee.id),
+          create: (ctx) => BookingsController(
+            ctx.read<BookingRepository>(),
+            MockSeed.currentEmployee.id,
+          ),
         ),
         ChangeNotifierProvider<VisitsController>(
-          create: (ctx) => VisitsController(ctx.read<VisitRepository>(), MockSeed.currentEmployee.id),
+          create: (ctx) => VisitsController(
+            ctx.read<VisitRepository>(),
+            MockSeed.currentEmployee.id,
+          ),
         ),
       ],
       child: MaterialApp(

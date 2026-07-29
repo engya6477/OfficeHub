@@ -18,6 +18,8 @@ class MockRoomRepository implements RoomRepository {
   List<MeetingRoom> search(String query) {
     if (query.trim().isEmpty) return getAll();
     final lower = query.toLowerCase();
-    return MockSeed.rooms.where((room) => room.name.toLowerCase().contains(lower)).toList();
+    return MockSeed.rooms
+        .where((room) => room.name.toLowerCase().contains(lower))
+        .toList();
   }
 }

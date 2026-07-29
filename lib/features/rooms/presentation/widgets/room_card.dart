@@ -51,7 +51,10 @@ class RoomCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.chipBackground,
                     borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -59,9 +62,18 @@ class RoomCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Iconsax.profile_2user, size: 12, color: AppColors.textSecondary),
+                      const Icon(
+                        Iconsax.profile_2user,
+                        size: 12,
+                        color: AppColors.textSecondary,
+                      ),
                       const SizedBox(width: 4),
-                      Text('Up to ${room.capacity}', style: AppTypography.cardMeta(color: AppColors.textSecondary)),
+                      Text(
+                        'Up to ${room.capacity}',
+                        style: AppTypography.cardMeta(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -72,14 +84,24 @@ class RoomCard extends StatelessWidget {
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
               children: room.facilities
-                  .map((f) => Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.chipBackground,
-                          borderRadius: BorderRadius.circular(AppRadius.md),
+                  .map(
+                    (f) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.chipBackground,
+                        borderRadius: BorderRadius.circular(AppRadius.md),
+                      ),
+                      child: Text(
+                        f.label,
+                        style: AppTypography.cardMeta(
+                          color: AppColors.textSecondary,
                         ),
-                        child: Text(f.label, style: AppTypography.cardMeta(color: AppColors.textSecondary)),
-                      ))
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
             if (availabilityLabel != null) ...[
@@ -91,17 +113,27 @@ class RoomCard extends StatelessWidget {
                   Icon(
                     isAvailable ? Iconsax.tick_circle : Iconsax.close_circle,
                     size: 14,
-                    color: isAvailable ? AppColors.successIcon : AppColors.error,
+                    color: isAvailable
+                        ? AppColors.successIcon
+                        : AppColors.error,
                   ),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
                       availabilityLabel!,
-                      style: AppTypography.cardMeta(color: isAvailable ? AppColors.success : AppColors.error),
+                      style: AppTypography.cardMeta(
+                        color: isAvailable
+                            ? AppColors.success
+                            : AppColors.error,
+                      ),
                     ),
                   ),
                   Text('View', style: AppTypography.link()),
-                  const Icon(Iconsax.arrow_right_3, size: 13, color: AppColors.primary),
+                  const Icon(
+                    Iconsax.arrow_right_3,
+                    size: 13,
+                    color: AppColors.primary,
+                  ),
                 ],
               ),
             ],

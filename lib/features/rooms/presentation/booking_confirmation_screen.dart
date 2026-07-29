@@ -24,36 +24,60 @@ class BookingConfirmationScreen extends StatelessWidget {
       canPop: false,
       child: Scaffold(
         backgroundColor: AppColors.surface,
-        appBar: AppBar(title: const Text('Review booking'), automaticallyImplyLeading: false),
+        appBar: AppBar(
+          title: const Text('Review booking'),
+          automaticallyImplyLeading: false,
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.xl),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: AppSpacing.xxl),
-                Container(
-                  width: 72,
-                  height: 72,
-                  decoration: const BoxDecoration(color: AppColors.successSurface, shape: BoxShape.circle),
-                  child: const Icon(Iconsax.tick_circle, color: AppColors.success, size: 36),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: const BoxDecoration(
+                            color: AppColors.successSurface,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Iconsax.tick_circle,
+                            color: AppColors.successIcon,
+                            size: 40,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.xl),
+                        Text(
+                          "You're all set!",
+                          style: AppTypography.feedbackTitle(),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
+                          '${room?.name ?? 'Room'} is booked for '
+                          '${DateTimeFormat.friendlyDate(booking.date)} · '
+                          '${DateTimeFormat.timeRange(booking.startTime, booking.endTime)}.',
+                          style: AppTypography.feedbackMessage(),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: AppSpacing.xl),
-                Text("You're all set!", style: AppTypography.heading().copyWith(fontSize: 22)),
-                const SizedBox(height: AppSpacing.sm),
-                Text(
-                  '${room?.name ?? 'Room'} is booked for '
-                  '${DateTimeFormat.friendlyDate(booking.date)} · '
-                  '${DateTimeFormat.timeRange(booking.startTime, booking.endTime)}.',
-                  style: AppTypography.body(color: AppColors.textMuted),
-                ),
-                const Spacer(),
                 AppButton(
                   label: 'View booking',
                   onPressed: () {
                     Navigator.of(context).popUntil((route) => route.isFirst);
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => BookingDetailsScreen(bookingId: booking.id)),
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            BookingDetailsScreen(bookingId: booking.id),
+                      ),
                     );
                   },
                 ),
@@ -61,7 +85,8 @@ class BookingConfirmationScreen extends StatelessWidget {
                 AppButton(
                   label: 'Done',
                   variant: AppButtonVariant.outline,
-                  onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+                  onPressed: () =>
+                      Navigator.of(context).popUntil((route) => route.isFirst),
                 ),
               ],
             ),

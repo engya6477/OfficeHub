@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/utils/business_hours.dart';
 import 'visit_repository.dart';
 
 /// Pure business-rule checks for visitor registration, kept separate from
@@ -19,6 +20,16 @@ abstract final class VisitValidation {
     );
     if (arrival.isBefore(now ?? DateTime.now())) {
       throw const VisitException('Visits cannot be scheduled in the past.');
+    }
+  }
+
+  /// The office is only staffed Sunday-Thursday, so visits follow the same
+  /// business-day rule as meeting room bookings.
+  static void assertBusinessDay(DateTime visitDate) {
+    if (!BusinessHours.isBusinessDay(visitDate)) {
+      throw const VisitException(
+        'Visits can only be scheduled Sunday to Thursday.',
+      );
     }
   }
 

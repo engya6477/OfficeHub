@@ -36,10 +36,14 @@ Future<DateTime?> showDateSelectionSheet(
           SizedBox(
             height: 340,
             child: CalendarDatePicker(
-              initialDate: initialDate != null && !initialDate.isBefore(today) ? initialDate : today,
+              initialDate: initialDate != null && !initialDate.isBefore(today)
+                  ? initialDate
+                  : today,
               firstDate: today,
               lastDate: today.add(const Duration(days: 365)),
-              selectableDayPredicate: restrictToBusinessDays ? BusinessHours.isBusinessDay : null,
+              selectableDayPredicate: restrictToBusinessDays
+                  ? BusinessHours.isBusinessDay
+                  : null,
               onDateChanged: (date) => Navigator.of(context).pop(date),
             ),
           ),

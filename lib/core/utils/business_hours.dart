@@ -14,9 +14,13 @@ abstract final class BusinessHours {
     DateTime.thursday,
   ];
 
-  static bool isBusinessDay(DateTime date) => businessWeekdays.contains(date.weekday);
+  static bool isBusinessDay(DateTime date) =>
+      businessWeekdays.contains(date.weekday);
 
-  static bool isWithinBusinessHours(TimeOfDay start, {int durationMinutes = 0}) {
+  static bool isWithinBusinessHours(
+    TimeOfDay start, {
+    int durationMinutes = 0,
+  }) {
     final startMinutes = start.hour * 60 + start.minute;
     final endMinutes = startMinutes + durationMinutes;
     return startMinutes >= openingHour * 60 && endMinutes <= closingHour * 60;
@@ -25,7 +29,11 @@ abstract final class BusinessHours {
   /// Half-hour start times available within business hours.
   static List<TimeOfDay> availableStartTimes() {
     final slots = <TimeOfDay>[];
-    for (var minutes = openingHour * 60; minutes < closingHour * 60; minutes += 30) {
+    for (
+      var minutes = openingHour * 60;
+      minutes < closingHour * 60;
+      minutes += 30
+    ) {
       slots.add(TimeOfDay(hour: minutes ~/ 60, minute: minutes % 60));
     }
     return slots;

@@ -7,7 +7,8 @@ abstract final class DateTimeFormat {
     return DateFormat('h:mm a').format(dt);
   }
 
-  static String timeRange(TimeOfDay start, TimeOfDay end) => '${time(start)}–${time(end)}';
+  static String timeRange(TimeOfDay start, TimeOfDay end) =>
+      '${time(start)}–${time(end)}';
 
   /// "Today" / "Tomorrow" / "Wed, Jul 29" depending on how far [date] is.
   static String friendlyDate(DateTime date) {
@@ -20,7 +21,8 @@ abstract final class DateTimeFormat {
     return DateFormat('EEE, MMM d').format(date);
   }
 
-  static String fullDate(DateTime date) => DateFormat('EEEE, MMM d').format(date);
+  static String fullDate(DateTime date) =>
+      DateFormat('EEEE, MMM d').format(date);
 
   static String shortDate(DateTime date) => DateFormat('MMM d').format(date);
 }

@@ -48,19 +48,30 @@ class MockVisitRepository implements VisitRepository {
 
   @override
   List<Visit> getUpcoming(String employeeId) {
-    final list = _visits
-        .where((v) => v.employeeId == employeeId && v.status == VisitStatus.upcoming && !v.isPast)
-        .toList()
-      ..sort((a, b) => a.arrivalDateTime.compareTo(b.arrivalDateTime));
+    final list =
+        _visits
+            .where(
+              (v) =>
+                  v.employeeId == employeeId &&
+                  v.status == VisitStatus.upcoming &&
+                  !v.isPast,
+            )
+            .toList()
+          ..sort((a, b) => a.arrivalDateTime.compareTo(b.arrivalDateTime));
     return list;
   }
 
   @override
   List<Visit> getHistory(String employeeId) {
-    final list = _visits
-        .where((v) => v.employeeId == employeeId && (v.status == VisitStatus.cancelled || v.isPast))
-        .toList()
-      ..sort((a, b) => b.arrivalDateTime.compareTo(a.arrivalDateTime));
+    final list =
+        _visits
+            .where(
+              (v) =>
+                  v.employeeId == employeeId &&
+                  (v.status == VisitStatus.cancelled || v.isPast),
+            )
+            .toList()
+          ..sort((a, b) => b.arrivalDateTime.compareTo(a.arrivalDateTime));
     return list;
   }
 
@@ -87,7 +98,11 @@ class MockVisitRepository implements VisitRepository {
       visitorPhone: visitorPhone,
       meetingLocation: meetingLocation,
     );
-    VisitValidation.assertNotInPast(visitDate: visitDate, arrivalTime: arrivalTime);
+    VisitValidation.assertNotInPast(
+      visitDate: visitDate,
+      arrivalTime: arrivalTime,
+    );
+    VisitValidation.assertBusinessDay(visitDate);
 
     final visit = Visit(
       id: _uuid.v4(),
@@ -129,7 +144,11 @@ class MockVisitRepository implements VisitRepository {
       visitorPhone: visitorPhone,
       meetingLocation: meetingLocation,
     );
-    VisitValidation.assertNotInPast(visitDate: visitDate, arrivalTime: arrivalTime);
+    VisitValidation.assertNotInPast(
+      visitDate: visitDate,
+      arrivalTime: arrivalTime,
+    );
+    VisitValidation.assertBusinessDay(visitDate);
 
     final updated = existing.copyWith(
       visitorName: visitorName,

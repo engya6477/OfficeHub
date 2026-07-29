@@ -71,7 +71,10 @@ void main() {
 
   group('BookingValidation.assertFitsCapacity', () {
     test('accepts attendees within capacity', () {
-      expect(() => BookingValidation.assertFitsCapacity(capacity: 8, attendees: 8), returnsNormally);
+      expect(
+        () => BookingValidation.assertFitsCapacity(capacity: 8, attendees: 8),
+        returnsNormally,
+      );
     });
 
     test('rejects attendees exceeding capacity', () {

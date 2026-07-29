@@ -15,13 +15,13 @@ class VisitDraft {
   });
 
   factory VisitDraft.fromVisit(Visit visit) => VisitDraft(
-        visitorName: visit.visitorName,
-        visitorPhone: visit.visitorPhone,
-        visitDate: visit.visitDate,
-        arrivalTime: visit.arrivalTime,
-        purpose: visit.purpose,
-        meetingLocation: visit.meetingLocation,
-      );
+    visitorName: visit.visitorName,
+    visitorPhone: visit.visitorPhone,
+    visitDate: visit.visitDate,
+    arrivalTime: visit.arrivalTime,
+    purpose: visit.purpose,
+    meetingLocation: visit.meetingLocation,
+  );
 
   final String visitorName;
   final String visitorPhone;

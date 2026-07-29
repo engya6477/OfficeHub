@@ -54,11 +54,15 @@ class _ReviewBookingScreenState extends State<ReviewBookingScreen> {
       );
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => BookingConfirmationScreen(booking: booking)),
+        MaterialPageRoute(
+          builder: (_) => BookingConfirmationScreen(booking: booking),
+        ),
       );
     } on BookingException catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -68,8 +72,13 @@ class _ReviewBookingScreenState extends State<ReviewBookingScreen> {
   Widget build(BuildContext context) {
     final room = context.read<RoomRepository>().getById(widget.roomId)!;
     final endTime = TimeOfDay.fromDateTime(
-      DateTime(widget.date.year, widget.date.month, widget.date.day, widget.startTime.hour, widget.startTime.minute)
-          .add(Duration(minutes: widget.durationMinutes)),
+      DateTime(
+        widget.date.year,
+        widget.date.month,
+        widget.date.day,
+        widget.startTime.hour,
+        widget.startTime.minute,
+      ).add(Duration(minutes: widget.durationMinutes)),
     );
 
     return Scaffold(
@@ -83,26 +92,33 @@ class _ReviewBookingScreenState extends State<ReviewBookingScreen> {
             children: [
               Text(
                 'Make sure everything looks right before you confirm.',
-                style: AppTypography.body(color: AppColors.textMuted),
+                style: AppTypography.authBody(),
               ),
               const SizedBox(height: AppSpacing.xl),
-              _Section(title: 'Room', rows: {
-                'Room': room.name,
-                'Location': room.location,
-              }),
+              _Section(
+                title: 'Room',
+                rows: {'Room': room.name, 'Location': room.location},
+              ),
               const SizedBox(height: AppSpacing.lg),
-              _Section(title: 'Schedule', rows: {
-                'Date': DateTimeFormat.friendlyDate(widget.date),
-                'Start time': DateTimeFormat.time(widget.startTime),
-                'End time': DateTimeFormat.time(endTime),
-                'Duration': _durationLabel(widget.durationMinutes),
-                'Attendees': '${widget.attendees} people',
-                'Facilities': widget.facilities.isEmpty
-                    ? 'None requested'
-                    : widget.facilities.map((f) => f.label).join(', '),
-              }),
+              _Section(
+                title: 'Schedule',
+                rows: {
+                  'Date': DateTimeFormat.friendlyDate(widget.date),
+                  'Start time': DateTimeFormat.time(widget.startTime),
+                  'End time': DateTimeFormat.time(endTime),
+                  'Duration': _durationLabel(widget.durationMinutes),
+                  'Attendees': '${widget.attendees} people',
+                  'Facilities': widget.facilities.isEmpty
+                      ? 'None requested'
+                      : widget.facilities.map((f) => f.label).join(', '),
+                },
+              ),
               const Spacer(),
-              AppButton(label: 'Confirm booking', loading: _submitting, onPressed: _confirm),
+              AppButton(
+                label: 'Confirm booking',
+                loading: _submitting,
+                onPressed: _confirm,
+              ),
               const SizedBox(height: AppSpacing.sm),
               AppButton(
                 label: 'Edit details',
@@ -149,8 +165,14 @@ class _Section extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
                 children: [
-                  Expanded(child: Text(e.key, style: AppTypography.body(color: AppColors.textMuted))),
-                  Flexible(child: Text(e.value, style: AppTypography.listTitle(), textAlign: TextAlign.right)),
+                  Expanded(child: Text(e.key, style: AppTypography.authBody())),
+                  Flexible(
+                    child: Text(
+                      e.value,
+                      style: AppTypography.listTitle(),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
                 ],
               ),
             ),

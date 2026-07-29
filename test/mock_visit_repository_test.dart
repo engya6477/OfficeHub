@@ -4,8 +4,19 @@ import 'package:officehub/data/repositories/mock_visit_repository.dart';
 import 'package:officehub/data/repositories/visit_repository.dart';
 import 'package:officehub/data/models/visit.dart';
 
-DateTime _futureDate({int daysAhead = 3}) {
-  final date = DateTime.now().add(Duration(days: daysAhead));
+/// Finds the next business day (Sunday-Thursday) at least [minDaysAhead] days
+/// from now, since visits now follow the same business-day rule as bookings.
+DateTime _futureDate({int minDaysAhead = 3}) {
+  var date = DateTime.now().add(Duration(days: minDaysAhead));
+  while (![
+    DateTime.sunday,
+    DateTime.monday,
+    DateTime.tuesday,
+    DateTime.wednesday,
+    DateTime.thursday,
+  ].contains(date.weekday)) {
+    date = date.add(const Duration(days: 1));
+  }
   return DateTime(date.year, date.month, date.day);
 }
 
@@ -60,7 +71,10 @@ void main() {
     );
 
     expect(
-      () => repository.cancelVisit(visitId: visit.id, employeeId: otherEmployeeId),
+      () => repository.cancelVisit(
+        visitId: visit.id,
+        employeeId: otherEmployeeId,
+      ),
       throwsA(isA<VisitException>()),
     );
     expect(
@@ -117,7 +131,13 @@ void main() {
 
     repository.cancelVisit(visitId: visit.id, employeeId: employeeId);
 
-    expect(repository.getUpcoming(employeeId).map((v) => v.id), isNot(contains(visit.id)));
-    expect(repository.getHistory(employeeId).map((v) => v.id), contains(visit.id));
+    expect(
+      repository.getUpcoming(employeeId).map((v) => v.id),
+      isNot(contains(visit.id)),
+    );
+    expect(
+      repository.getHistory(employeeId).map((v) => v.id),
+      contains(visit.id),
+    );
   });
 }

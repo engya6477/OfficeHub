@@ -35,8 +35,16 @@ class _VisitorsTabScreenState extends State<VisitorsTabScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.xl, AppSpacing.lg, AppSpacing.xl, 0),
-              child: Text('Visitors', style: AppTypography.heading().copyWith(fontSize: 24)),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xl,
+                AppSpacing.lg,
+                AppSpacing.xl,
+                0,
+              ),
+              child: Text(
+                'Visitors',
+                style: AppTypography.heading().copyWith(fontSize: 24),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(AppSpacing.xl),
@@ -44,7 +52,9 @@ class _VisitorsTabScreenState extends State<VisitorsTabScreen> {
                 width: double.infinity,
                 child: FilledButton.icon(
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const RegisterVisitorScreen()),
+                    MaterialPageRoute(
+                      builder: (_) => const RegisterVisitorScreen(),
+                    ),
                   ),
                   icon: const Icon(Iconsax.user_add),
                   label: const Text('Register visitor'),
@@ -69,16 +79,25 @@ class _VisitorsTabScreenState extends State<VisitorsTabScreen> {
               child: list.isEmpty
                   ? EmptyState(
                       icon: Iconsax.profile_2user,
-                      title: _segment == 0 ? 'No upcoming visits' : 'No visit history yet',
+                      title: _segment == 0
+                          ? 'No upcoming visits'
+                          : 'No visit history yet',
                       message: _segment == 0
                           ? 'Register a visitor to see them listed here.'
                           : 'Your past and cancelled visits will appear here.',
                     )
                   : ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(AppSpacing.xl, 0, AppSpacing.xl, AppSpacing.xl),
+                      padding: const EdgeInsets.fromLTRB(
+                        AppSpacing.xl,
+                        0,
+                        AppSpacing.xl,
+                        AppSpacing.xl,
+                      ),
                       itemCount: list.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
-                      itemBuilder: (context, index) => _VisitListTile(visit: list[index]),
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(height: AppSpacing.md),
+                      itemBuilder: (context, index) =>
+                          _VisitListTile(visit: list[index]),
                     ),
             ),
           ],
@@ -89,7 +108,11 @@ class _VisitorsTabScreenState extends State<VisitorsTabScreen> {
 }
 
 class _SegmentToggle extends StatelessWidget {
-  const _SegmentToggle({required this.value, required this.labels, required this.onChanged});
+  const _SegmentToggle({
+    required this.value,
+    required this.labels,
+    required this.onChanged,
+  });
 
   final int value;
   final List<String> labels;
@@ -99,7 +122,10 @@ class _SegmentToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(color: AppColors.chipBackground, borderRadius: BorderRadius.circular(AppRadius.sm)),
+      decoration: BoxDecoration(
+        color: AppColors.chipBackground,
+        borderRadius: BorderRadius.circular(AppRadius.sm),
+      ),
       child: Row(
         children: List.generate(labels.length, (index) {
           final selected = index == value;
@@ -116,7 +142,11 @@ class _SegmentToggle extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   labels[index],
-                  style: AppTypography.listTitle(color: selected ? AppColors.textPrimary : AppColors.textMuted),
+                  style: AppTypography.listTitle(
+                    color: selected
+                        ? AppColors.textPrimary
+                        : AppColors.textMuted,
+                  ),
                 ),
               ),
             ),
@@ -143,7 +173,9 @@ class _VisitListTile extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.xl),
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => VisitDetailsScreen(visitId: visit.id)),
+        MaterialPageRoute(
+          builder: (_) => VisitDetailsScreen(visitId: visit.id),
+        ),
       ),
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -157,9 +189,15 @@ class _VisitListTile extends StatelessWidget {
             Container(
               width: 40,
               height: 40,
-              decoration:
-                  BoxDecoration(color: AppColors.visitorAccentSurface, borderRadius: BorderRadius.circular(AppRadius.lg)),
-              child: const Icon(Iconsax.profile_2user, size: 20, color: AppColors.visitorAccent),
+              decoration: BoxDecoration(
+                color: AppColors.visitorAccentSurface,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
+              child: const Icon(
+                Iconsax.profile_2user,
+                size: 20,
+                color: AppColors.visitorAccent,
+              ),
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
@@ -168,7 +206,10 @@ class _VisitListTile extends StatelessWidget {
                 children: [
                   Text(visit.visitorName, style: AppTypography.listTitle()),
                   const SizedBox(height: 2),
-                  Text('${visit.purpose.label} · ${visit.meetingLocation}', style: AppTypography.cardMeta()),
+                  Text(
+                    '${visit.purpose.label} · ${visit.meetingLocation}',
+                    style: AppTypography.cardMeta(),
+                  ),
                 ],
               ),
             ),
@@ -177,7 +218,10 @@ class _VisitListTile extends StatelessWidget {
               children: [
                 StatusBadge(label: visit.displayStatusLabel, tone: tone),
                 const SizedBox(height: 4),
-                Text(DateTimeFormat.time(visit.arrivalTime), style: AppTypography.cardMeta()),
+                Text(
+                  DateTimeFormat.time(visit.arrivalTime),
+                  style: AppTypography.cardMeta(),
+                ),
               ],
             ),
           ],

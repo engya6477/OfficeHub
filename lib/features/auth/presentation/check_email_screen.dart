@@ -20,28 +20,47 @@ class CheckEmailScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.xl),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: AppSpacing.xxl),
-              Container(
-                width: 72,
-                height: 72,
-                decoration: const BoxDecoration(color: AppColors.successSurface, shape: BoxShape.circle),
-                child: const Icon(Iconsax.tick_circle, color: AppColors.success, size: 36),
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: const BoxDecoration(
+                          color: AppColors.successSurface,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Iconsax.tick_circle,
+                          color: AppColors.successIcon,
+                          size: 40,
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.xl),
+                      Text(
+                        'Instructions sent',
+                        style: AppTypography.feedbackTitle(),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        "We've sent password reset instructions to $email.",
+                        style: AppTypography.feedbackMessage(),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      Text(
+                        "Didn't receive it? Check your spam folder or try again.",
+                        style: AppTypography.cardMeta(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const SizedBox(height: AppSpacing.xl),
-              Text('Instructions sent', style: AppTypography.heading().copyWith(fontSize: 22)),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                "We've sent password reset instructions to $email.",
-                style: AppTypography.body(color: AppColors.textMuted),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                "Didn't receive it? Check your spam folder or try again.",
-                style: AppTypography.cardMeta(),
-              ),
-              const Spacer(),
               AppButton(
                 label: 'Try another email',
                 variant: AppButtonVariant.outline,
@@ -51,7 +70,8 @@ class CheckEmailScreen extends StatelessWidget {
               AppButton(
                 label: 'Back to sign in',
                 variant: AppButtonVariant.text,
-                onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+                onPressed: () =>
+                    Navigator.of(context).popUntil((route) => route.isFirst),
               ),
             ],
           ),

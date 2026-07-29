@@ -17,7 +17,11 @@ import 'visit_purpose_sheet.dart';
 /// Step 1 of 2: visitor information + visit details. Reused for both
 /// registering a new visitor and editing an eligible upcoming visit.
 class RegisterVisitorScreen extends StatefulWidget {
-  const RegisterVisitorScreen({super.key, this.editingVisitId, this.initialDraft});
+  const RegisterVisitorScreen({
+    super.key,
+    this.editingVisitId,
+    this.initialDraft,
+  });
 
   final String? editingVisitId;
   final VisitDraft? initialDraft;
@@ -29,8 +33,12 @@ class RegisterVisitorScreen extends StatefulWidget {
 }
 
 class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
-  late final _nameController = TextEditingController(text: widget.initialDraft?.visitorName ?? '');
-  late final _phoneController = TextEditingController(text: widget.initialDraft?.visitorPhone ?? '');
+  late final _nameController = TextEditingController(
+    text: widget.initialDraft?.visitorName ?? '',
+  );
+  late final _phoneController = TextEditingController(
+    text: widget.initialDraft?.visitorPhone ?? '',
+  );
   late VisitDraft _draft = widget.initialDraft ?? const VisitDraft();
 
   @override
@@ -41,23 +49,39 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
   }
 
   Future<void> _pickDate() async {
-    final date = await showDateSelectionSheet(context, initialDate: _draft.visitDate, restrictToBusinessDays: false);
+    final date = await showDateSelectionSheet(
+      context,
+      initialDate: _draft.visitDate,
+    );
     if (date != null) setState(() => _draft = _draft.copyWith(visitDate: date));
   }
 
   Future<void> _pickTime() async {
-    final time = await showTimeSelectionSheet(context, initialTime: _draft.arrivalTime, title: 'Select arrival time');
-    if (time != null) setState(() => _draft = _draft.copyWith(arrivalTime: time));
+    final time = await showTimeSelectionSheet(
+      context,
+      initialTime: _draft.arrivalTime,
+      title: 'Select arrival time',
+    );
+    if (time != null) {
+      setState(() => _draft = _draft.copyWith(arrivalTime: time));
+    }
   }
 
   Future<void> _pickPurpose() async {
     final purpose = await showVisitPurposeSheet(context, _draft.purpose);
-    if (purpose != null) setState(() => _draft = _draft.copyWith(purpose: purpose));
+    if (purpose != null) {
+      setState(() => _draft = _draft.copyWith(purpose: purpose));
+    }
   }
 
   Future<void> _pickLocation() async {
-    final location = await showVisitLocationSheet(context, _draft.meetingLocation);
-    if (location != null) setState(() => _draft = _draft.copyWith(meetingLocation: location));
+    final location = await showVisitLocationSheet(
+      context,
+      _draft.meetingLocation,
+    );
+    if (location != null) {
+      setState(() => _draft = _draft.copyWith(meetingLocation: location));
+    }
   }
 
   void _continue() {
@@ -73,7 +97,10 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
     }
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ReviewVisitScreen(draft: draft, editingVisitId: widget.editingVisitId),
+        builder: (_) => ReviewVisitScreen(
+          draft: draft,
+          editingVisitId: widget.editingVisitId,
+        ),
       ),
     );
   }
@@ -82,7 +109,9 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(title: Text(widget.isEditing ? 'Edit visit' : 'Register visitor')),
+      appBar: AppBar(
+        title: Text(widget.isEditing ? 'Edit visit' : 'Register visitor'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSpacing.xl),
@@ -93,9 +122,9 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
                 Text('Step 1 of 2', style: AppTypography.caption()),
                 const SizedBox(height: 4),
               ],
-              Text('Visitor information', style: AppTypography.heading().copyWith(fontSize: 22)),
+              Text('Visitor information', style: AppTypography.feedbackTitle()),
               const SizedBox(height: 4),
-              Text('Who is coming to visit?', style: AppTypography.body(color: AppColors.textMuted)),
+              Text('Who is coming to visit?', style: AppTypography.authBody()),
               const SizedBox(height: AppSpacing.xxl),
               AppTextField(
                 label: 'Visitor Name',
@@ -117,14 +146,18 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
               _FieldTile(
                 icon: Iconsax.calendar_1,
                 label: 'Visit date',
-                value: _draft.visitDate == null ? 'Select date' : DateTimeFormat.friendlyDate(_draft.visitDate!),
+                value: _draft.visitDate == null
+                    ? 'Select date'
+                    : DateTimeFormat.friendlyDate(_draft.visitDate!),
                 onTap: _pickDate,
               ),
               const SizedBox(height: AppSpacing.md),
               _FieldTile(
                 icon: Iconsax.clock,
                 label: 'Arrival time',
-                value: _draft.arrivalTime == null ? 'Select time' : DateTimeFormat.time(_draft.arrivalTime!),
+                value: _draft.arrivalTime == null
+                    ? 'Select time'
+                    : DateTimeFormat.time(_draft.arrivalTime!),
                 onTap: _pickTime,
               ),
               const SizedBox(height: AppSpacing.md),
@@ -152,7 +185,12 @@ class _RegisterVisitorScreenState extends State<RegisterVisitorScreen> {
 }
 
 class _FieldTile extends StatelessWidget {
-  const _FieldTile({required this.icon, required this.label, required this.value, required this.onTap});
+  const _FieldTile({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.onTap,
+  });
 
   final IconData icon;
   final String label;
@@ -165,7 +203,10 @@ class _FieldTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.sm),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.md,
+        ),
         decoration: BoxDecoration(
           color: AppColors.surface,
           border: Border.all(color: AppColors.borderStrong),
@@ -177,9 +218,19 @@ class _FieldTile extends StatelessWidget {
             const SizedBox(width: AppSpacing.md),
             Text(label, style: AppTypography.inputLabel()),
             const Spacer(),
-            Flexible(child: Text(value, style: AppTypography.body(), textAlign: TextAlign.right)),
+            Flexible(
+              child: Text(
+                value,
+                style: AppTypography.body(),
+                textAlign: TextAlign.right,
+              ),
+            ),
             const SizedBox(width: AppSpacing.xs),
-            const Icon(Iconsax.arrow_right_3, size: 16, color: AppColors.textMutedAlt),
+            const Icon(
+              Iconsax.arrow_right_3,
+              size: 16,
+              color: AppColors.textMutedAlt,
+            ),
           ],
         ),
       ),

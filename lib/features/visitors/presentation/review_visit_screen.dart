@@ -12,7 +12,11 @@ import '../application/visits_controller.dart';
 import 'visit_confirmation_screen.dart';
 
 class ReviewVisitScreen extends StatefulWidget {
-  const ReviewVisitScreen({super.key, required this.draft, this.editingVisitId});
+  const ReviewVisitScreen({
+    super.key,
+    required this.draft,
+    this.editingVisitId,
+  });
 
   final VisitDraft draft;
   final String? editingVisitId;
@@ -49,11 +53,18 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
             );
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => VisitConfirmationScreen(visitorName: visit.visitorName, visit: visit)),
+        MaterialPageRoute(
+          builder: (_) => VisitConfirmationScreen(
+            visitorName: visit.visitorName,
+            visit: visit,
+          ),
+        ),
       );
     } on VisitException catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -81,20 +92,23 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
                 isEditing
                     ? 'Make sure everything looks right before saving.'
                     : 'Make sure everything looks right before registering.',
-                style: AppTypography.body(color: AppColors.textMuted),
+                style: AppTypography.authBody(),
               ),
               const SizedBox(height: AppSpacing.xl),
-              _Section(title: 'Visitor information', rows: {
-                'Name': draft.visitorName,
-                'Phone': draft.visitorPhone,
-              }),
+              _Section(
+                title: 'Visitor information',
+                rows: {'Name': draft.visitorName, 'Phone': draft.visitorPhone},
+              ),
               const SizedBox(height: AppSpacing.lg),
-              _Section(title: 'Visit information', rows: {
-                'Date': DateTimeFormat.friendlyDate(draft.visitDate!),
-                'Arrival time': DateTimeFormat.time(draft.arrivalTime!),
-                'Purpose': draft.purpose!.label,
-                'Location': draft.meetingLocation!,
-              }),
+              _Section(
+                title: 'Visit information',
+                rows: {
+                  'Date': DateTimeFormat.friendlyDate(draft.visitDate!),
+                  'Arrival time': DateTimeFormat.time(draft.arrivalTime!),
+                  'Purpose': draft.purpose!.label,
+                  'Location': draft.meetingLocation!,
+                },
+              ),
               const Spacer(),
               AppButton(
                 label: isEditing ? 'Save changes' : 'Register visitor',
@@ -141,8 +155,14 @@ class _Section extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
                 children: [
-                  Expanded(child: Text(e.key, style: AppTypography.body(color: AppColors.textMuted))),
-                  Flexible(child: Text(e.value, style: AppTypography.listTitle(), textAlign: TextAlign.right)),
+                  Expanded(child: Text(e.key, style: AppTypography.authBody())),
+                  Flexible(
+                    child: Text(
+                      e.value,
+                      style: AppTypography.listTitle(),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
                 ],
               ),
             ),

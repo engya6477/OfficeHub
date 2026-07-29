@@ -36,7 +36,9 @@ class CounterStepper extends StatelessWidget {
             onTap: value > min ? () => onChanged(value - 1) : null,
           ),
           Expanded(
-            child: Center(child: Text('$value', style: AppTypography.stepperValue())),
+            child: Center(
+              child: Text('$value', style: AppTypography.stepperValue()),
+            ),
           ),
           _StepperButton(
             icon: Iconsax.add,
@@ -61,7 +63,11 @@ class _StepperButton extends StatelessWidget {
       height: 46,
       child: IconButton(
         onPressed: onTap,
-        icon: Icon(icon, size: 16, color: onTap == null ? AppColors.placeholder : AppColors.textMuted),
+        icon: Icon(
+          icon,
+          size: 16,
+          color: onTap == null ? AppColors.placeholder : AppColors.textMuted,
+        ),
       ),
     );
   }

@@ -41,6 +41,29 @@ void main() {
     });
   });
 
+  group('VisitValidation.assertBusinessDay', () {
+    test('accepts a Sunday-Thursday visit date', () {
+      expect(
+        () => VisitValidation.assertBusinessDay(DateTime(2026, 8, 2)),
+        returnsNormally,
+      );
+    });
+
+    test('rejects a Friday visit date', () {
+      expect(
+        () => VisitValidation.assertBusinessDay(DateTime(2026, 8, 7)),
+        throwsA(isA<VisitException>()),
+      );
+    });
+
+    test('rejects a Saturday visit date', () {
+      expect(
+        () => VisitValidation.assertBusinessDay(DateTime(2026, 8, 8)),
+        throwsA(isA<VisitException>()),
+      );
+    });
+  });
+
   group('VisitValidation.assertRequiredFieldsCompleted', () {
     test('accepts fully completed information', () {
       expect(

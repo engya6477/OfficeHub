@@ -16,11 +16,17 @@ class RoomFilters {
   static const attendeeBrackets = [4, 8, 16, 20];
 
   RoomFilters copyWith({int? minAttendees, Set<RoomFacility>? facilities}) {
-    return RoomFilters(minAttendees: minAttendees ?? this.minAttendees, facilities: facilities ?? this.facilities);
+    return RoomFilters(
+      minAttendees: minAttendees ?? this.minAttendees,
+      facilities: facilities ?? this.facilities,
+    );
   }
 }
 
-Future<RoomFilters?> showRoomFiltersSheet(BuildContext context, RoomFilters current) {
+Future<RoomFilters?> showRoomFiltersSheet(
+  BuildContext context,
+  RoomFilters current,
+) {
   return showAppBottomSheet<RoomFilters>(
     context: context,
     title: 'Filters',
@@ -44,7 +50,12 @@ class _RoomFiltersBodyState extends State<_RoomFiltersBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.xl),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.xl,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,11 +66,15 @@ class _RoomFiltersBodyState extends State<_RoomFiltersBody> {
             spacing: AppSpacing.sm,
             runSpacing: AppSpacing.sm,
             children: RoomFilters.attendeeBrackets
-                .map((n) => SelectableChip(
-                      label: 'Up to $n',
-                      selected: _minAttendees == n,
-                      onTap: () => setState(() => _minAttendees = _minAttendees == n ? null : n),
-                    ))
+                .map(
+                  (n) => SelectableChip(
+                    label: 'Up to $n',
+                    selected: _minAttendees == n,
+                    onTap: () => setState(
+                      () => _minAttendees = _minAttendees == n ? null : n,
+                    ),
+                  ),
+                )
                 .toList(),
           ),
           const SizedBox(height: AppSpacing.xl),
@@ -69,11 +84,17 @@ class _RoomFiltersBodyState extends State<_RoomFiltersBody> {
             spacing: AppSpacing.sm,
             runSpacing: AppSpacing.sm,
             children: RoomFacility.values
-                .map((f) => SelectableChip(
-                      label: f.label,
-                      selected: _facilities.contains(f),
-                      onTap: () => setState(() => _facilities.contains(f) ? _facilities.remove(f) : _facilities.add(f)),
-                    ))
+                .map(
+                  (f) => SelectableChip(
+                    label: f.label,
+                    selected: _facilities.contains(f),
+                    onTap: () => setState(
+                      () => _facilities.contains(f)
+                          ? _facilities.remove(f)
+                          : _facilities.add(f),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
           const SizedBox(height: AppSpacing.xxl),
@@ -83,15 +104,20 @@ class _RoomFiltersBodyState extends State<_RoomFiltersBody> {
                 child: AppButton(
                   label: 'Reset All',
                   variant: AppButtonVariant.outline,
-                  onPressed: () => Navigator.of(context).pop(const RoomFilters()),
+                  onPressed: () =>
+                      Navigator.of(context).pop(const RoomFilters()),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: AppButton(
                   label: 'Apply Filters',
-                  onPressed: () =>
-                      Navigator.of(context).pop(RoomFilters(minAttendees: _minAttendees, facilities: _facilities)),
+                  onPressed: () => Navigator.of(context).pop(
+                    RoomFilters(
+                      minAttendees: _minAttendees,
+                      facilities: _facilities,
+                    ),
+                  ),
                 ),
               ),
             ],

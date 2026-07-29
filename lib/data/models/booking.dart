@@ -34,15 +34,22 @@ class Booking {
   /// room name.
   final String? title;
 
-  DateTime get startDateTime =>
-      DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute);
+  DateTime get startDateTime => DateTime(
+    date.year,
+    date.month,
+    date.day,
+    startTime.hour,
+    startTime.minute,
+  );
 
-  DateTime get endDateTime => startDateTime.add(Duration(minutes: durationMinutes));
+  DateTime get endDateTime =>
+      startDateTime.add(Duration(minutes: durationMinutes));
 
   TimeOfDay get endTime => TimeOfDay.fromDateTime(endDateTime);
 
   bool overlaps(Booking other) =>
-      startDateTime.isBefore(other.endDateTime) && other.startDateTime.isBefore(endDateTime);
+      startDateTime.isBefore(other.endDateTime) &&
+      other.startDateTime.isBefore(endDateTime);
 
   bool get isPast => DateTime.now().isAfter(endDateTime);
 

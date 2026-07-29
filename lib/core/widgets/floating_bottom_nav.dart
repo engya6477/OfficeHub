@@ -30,34 +30,54 @@ class FloatingBottomNav extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.sm),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          AppSpacing.sm,
+        ),
         child: Container(
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
-              BoxShadow(color: Colors.black.withValues(alpha: 0.06), offset: const Offset(0, 2), blurRadius: 8),
-              BoxShadow(color: Colors.black.withValues(alpha: 0.14), offset: const Offset(0, 8), blurRadius: 32),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.06),
+                offset: const Offset(0, 2),
+                blurRadius: 8,
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.14),
+                offset: const Offset(0, 8),
+                blurRadius: 32,
+              ),
             ],
           ),
           child: Row(
             children: List.generate(items.length, (index) {
               final selected = index == currentIndex;
               final item = items[index];
-              final color = selected ? AppColors.primary : AppColors.textDisabled;
+              final color = selected
+                  ? AppColors.primary
+                  : AppColors.textDisabled;
               return Expanded(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(22),
                   onTap: () => onTap(index),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.sm,
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(item.icon, size: 22, color: color),
                         const SizedBox(height: AppSpacing.xs),
-                        Text(item.label, style: AppTypography.navLabel(color: color)),
+                        Text(
+                          item.label,
+                          style: AppTypography.navLabel(color: color),
+                        ),
                       ],
                     ),
                   ),

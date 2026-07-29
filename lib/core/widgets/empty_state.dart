@@ -31,18 +31,28 @@ class EmptyState extends StatelessWidget {
             Container(
               width: 64,
               height: 64,
-              decoration: const BoxDecoration(color: AppColors.chipBackground, shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                color: AppColors.chipBackground,
+                shape: BoxShape.circle,
+              ),
               child: Icon(icon, size: 32, color: AppColors.textMuted),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text(title, style: AppTypography.sectionTitle(), textAlign: TextAlign.center),
+            Text(
+              title,
+              style: AppTypography.sectionTitle(),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: AppSpacing.sm),
             Text(
               message,
               style: AppTypography.cardMeta(color: AppColors.textMuted),
               textAlign: TextAlign.center,
             ),
-            if (action != null) ...[const SizedBox(height: AppSpacing.xl), action!],
+            if (action != null) ...[
+              const SizedBox(height: AppSpacing.xl),
+              action!,
+            ],
           ],
         ),
       ),

@@ -23,8 +23,13 @@ class BookingCriteria {
 
   DateTime get endDateTime {
     final start = startTime!;
-    return DateTime(date!.year, date!.month, date!.day, start.hour, start.minute)
-        .add(Duration(minutes: durationMinutes));
+    return DateTime(
+      date!.year,
+      date!.month,
+      date!.day,
+      start.hour,
+      start.minute,
+    ).add(Duration(minutes: durationMinutes));
   }
 
   TimeOfDay get endTime => TimeOfDay.fromDateTime(endDateTime);

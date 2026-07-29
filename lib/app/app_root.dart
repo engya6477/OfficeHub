@@ -26,10 +26,14 @@ class _AppRootState extends State<AppRoot> {
     final auth = context.watch<AuthController>();
 
     if (_showSplash) {
-      return SplashScreen(onFinished: () => setState(() => _showSplash = false));
+      return SplashScreen(
+        onFinished: () => setState(() => _showSplash = false),
+      );
     }
     if (!_onboardingDone) {
-      return OnboardingScreen(onFinished: () => setState(() => _onboardingDone = true));
+      return OnboardingScreen(
+        onFinished: () => setState(() => _onboardingDone = true),
+      );
     }
     if (!auth.isAuthenticated) {
       return SignInScreen(onSignedIn: () {});

@@ -55,7 +55,10 @@ class AppTextField extends StatelessWidget {
               Container(
                 width: 6,
                 height: 6,
-                decoration: const BoxDecoration(color: AppColors.error, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: AppColors.error,
+                  shape: BoxShape.circle,
+                ),
               ),
             ],
           ],
@@ -75,10 +78,16 @@ class AppTextField extends StatelessWidget {
             errorText: errorText,
             helperText: errorText == null ? helperText : null,
             helperStyle: AppTypography.helper(color: AppColors.textMutedAlt),
-            prefixIcon: leadingIcon != null ? Icon(leadingIcon, size: 24, color: AppColors.textMutedAlt) : null,
+            prefixIcon: leadingIcon != null
+                ? Icon(leadingIcon, size: 24, color: AppColors.textMutedAlt)
+                : null,
             suffixIcon: trailingIcon != null
                 ? IconButton(
-                    icon: Icon(trailingIcon, size: 24, color: AppColors.textMutedAlt),
+                    icon: Icon(
+                      trailingIcon,
+                      size: 24,
+                      color: AppColors.textMutedAlt,
+                    ),
                     onPressed: onTrailingIconPressed,
                   )
                 : null,

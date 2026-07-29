@@ -6,11 +6,31 @@ import 'app_colors.dart';
 /// Outfit for headings/labels/body copy, Inter for card and list content.
 /// Both are bundled as local variable-font assets (see pubspec.yaml).
 abstract final class AppTypography {
-  static TextStyle _outfit(double size, FontWeight weight, Color color, {double? height}) =>
-      TextStyle(fontFamily: 'Outfit', fontSize: size, fontWeight: weight, color: color, height: height);
+  static TextStyle _outfit(
+    double size,
+    FontWeight weight,
+    Color color, {
+    double? height,
+  }) => TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: size,
+    fontWeight: weight,
+    color: color,
+    height: height,
+  );
 
-  static TextStyle _inter(double size, FontWeight weight, Color color, {double? height}) =>
-      TextStyle(fontFamily: 'Inter', fontSize: size, fontWeight: weight, color: color, height: height);
+  static TextStyle _inter(
+    double size,
+    FontWeight weight,
+    Color color, {
+    double? height,
+  }) => TextStyle(
+    fontFamily: 'Inter',
+    fontSize: size,
+    fontWeight: weight,
+    color: color,
+    height: height,
+  );
 
   // Screen / app bar title, e.g. "Search", "Filters".
   static TextStyle screenTitle({Color color = AppColors.textPrimary}) =>
@@ -70,6 +90,13 @@ abstract final class AppTypography {
   // "Forgot password?" style link.
   static TextStyle linkMedium({Color color = AppColors.primary}) =>
       _inter(14, FontWeight.w500, color);
+
+  // Full-page feedback/confirmation screens ("You're all set!").
+  static TextStyle feedbackTitle({Color color = AppColors.textPrimaryAlt}) =>
+      _inter(20, FontWeight.w700, color, height: 28 / 20);
+
+  static TextStyle feedbackMessage({Color color = AppColors.textMuted}) =>
+      _inter(14, FontWeight.w400, color, height: 22.75 / 14);
 
   // Card / list content set in Inter.
   static TextStyle cardTitle({Color color = AppColors.textPrimary}) =>

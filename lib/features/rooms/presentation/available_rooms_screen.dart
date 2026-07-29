@@ -35,8 +35,13 @@ class AvailableRoomsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bookings = context.watch<BookingsController>();
     final endTime = TimeOfDay.fromDateTime(
-      DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute)
-          .add(Duration(minutes: durationMinutes)),
+      DateTime(
+        date.year,
+        date.month,
+        date.day,
+        startTime.hour,
+        startTime.minute,
+      ).add(Duration(minutes: durationMinutes)),
     );
     final rooms = bookings.findAvailableRooms(
       date: date,
@@ -54,7 +59,12 @@ class AvailableRoomsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.xl, AppSpacing.lg, AppSpacing.xl, 0),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xl,
+                AppSpacing.lg,
+                AppSpacing.xl,
+                0,
+              ),
               child: Container(
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 decoration: BoxDecoration(
@@ -93,7 +103,9 @@ class AvailableRoomsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
               child: Text(
-                rooms.isEmpty ? '0 rooms available' : '${rooms.length} room${rooms.length == 1 ? '' : 's'} available',
+                rooms.isEmpty
+                    ? '0 rooms available'
+                    : '${rooms.length} room${rooms.length == 1 ? '' : 's'} available',
                 style: AppTypography.sectionTitle(),
               ),
             ),
@@ -124,12 +136,14 @@ class AvailableRoomsScreen extends StatelessWidget {
                   : ListView.separated(
                       padding: const EdgeInsets.all(AppSpacing.xl),
                       itemCount: rooms.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(height: AppSpacing.md),
                       itemBuilder: (context, index) {
                         final room = rooms[index];
                         return RoomCard(
                           room: room,
-                          availabilityLabel: 'Available · ${DateTimeFormat.timeRange(startTime, endTime)}',
+                          availabilityLabel:
+                              'Available · ${DateTimeFormat.timeRange(startTime, endTime)}',
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (_) => RoomDetailsScreen(

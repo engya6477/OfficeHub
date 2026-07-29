@@ -29,7 +29,10 @@ class MockBookingRepository implements BookingRepository {
         startTime: const TimeOfDay(hour: 10, minute: 0),
         durationMinutes: 60,
         attendees: 4,
-        facilities: const [RoomFacility.display, RoomFacility.videoConferencing],
+        facilities: const [
+          RoomFacility.display,
+          RoomFacility.videoConferencing,
+        ],
         status: BookingStatus.upcoming,
         createdAt: now.subtract(const Duration(days: 1)),
         title: 'Product Sync',
@@ -53,19 +56,30 @@ class MockBookingRepository implements BookingRepository {
 
   @override
   List<Booking> getUpcoming(String employeeId) {
-    final list = _bookings
-        .where((b) => b.employeeId == employeeId && b.status == BookingStatus.upcoming && !b.isPast)
-        .toList()
-      ..sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
+    final list =
+        _bookings
+            .where(
+              (b) =>
+                  b.employeeId == employeeId &&
+                  b.status == BookingStatus.upcoming &&
+                  !b.isPast,
+            )
+            .toList()
+          ..sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
     return list;
   }
 
   @override
   List<Booking> getHistory(String employeeId) {
-    final list = _bookings
-        .where((b) => b.employeeId == employeeId && (b.status == BookingStatus.cancelled || b.isPast))
-        .toList()
-      ..sort((a, b) => b.startDateTime.compareTo(a.startDateTime));
+    final list =
+        _bookings
+            .where(
+              (b) =>
+                  b.employeeId == employeeId &&
+                  (b.status == BookingStatus.cancelled || b.isPast),
+            )
+            .toList()
+          ..sort((a, b) => b.startDateTime.compareTo(a.startDateTime));
     return list;
   }
 
@@ -77,7 +91,13 @@ class MockBookingRepository implements BookingRepository {
     return null;
   }
 
-  bool _isRoomFree(String roomId, DateTime date, TimeOfDay startTime, int durationMinutes, {String? excludingBookingId}) {
+  bool _isRoomFree(
+    String roomId,
+    DateTime date,
+    TimeOfDay startTime,
+    int durationMinutes, {
+    String? excludingBookingId,
+  }) {
     final candidate = Booking(
       id: 'candidate',
       roomId: roomId,
@@ -90,11 +110,13 @@ class MockBookingRepository implements BookingRepository {
       status: BookingStatus.upcoming,
       createdAt: date,
     );
-    return !_bookings.any((b) =>
-        b.id != excludingBookingId &&
-        b.roomId == roomId &&
-        b.status == BookingStatus.upcoming &&
-        b.overlaps(candidate));
+    return !_bookings.any(
+      (b) =>
+          b.id != excludingBookingId &&
+          b.roomId == roomId &&
+          b.status == BookingStatus.upcoming &&
+          b.overlaps(candidate),
+    );
   }
 
   @override
@@ -124,18 +146,27 @@ class MockBookingRepository implements BookingRepository {
     required List<RoomFacility> facilities,
     String? title,
   }) {
-    BookingValidation.assertValidSlot(date: date, startTime: startTime, durationMinutes: durationMinutes);
+    BookingValidation.assertValidSlot(
+      date: date,
+      startTime: startTime,
+      durationMinutes: durationMinutes,
+    );
 
     final room = _roomRepository.getById(roomId);
     if (room == null) {
       throw const BookingException('This room is no longer available.');
     }
-    BookingValidation.assertFitsCapacity(capacity: room.capacity, attendees: attendees);
+    BookingValidation.assertFitsCapacity(
+      capacity: room.capacity,
+      attendees: attendees,
+    );
 
     // Revalidate availability right before confirming, in case another
     // booking was made for this room/slot since the user started the flow.
     if (!_isRoomFree(roomId, date, startTime, durationMinutes)) {
-      throw const BookingException('This room was just booked for the selected time. Please choose another slot.');
+      throw const BookingException(
+        'This room was just booked for the selected time. Please choose another slot.',
+      );
     }
 
     final booking = Booking(

@@ -33,7 +33,10 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _submit(AuthController auth) async {
-    final success = await auth.signIn(email: _emailController.text, password: _passwordController.text);
+    final success = await auth.signIn(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
     if (success && mounted) widget.onSignedIn();
   }
 
@@ -46,7 +49,12 @@ class _SignInScreenState extends State<SignInScreen> {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xl),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              0,
+              AppSpacing.lg,
+              AppSpacing.xl,
+            ),
             decoration: const BoxDecoration(gradient: AppColors.heroGradient),
             child: SafeArea(
               bottom: false,
@@ -58,13 +66,23 @@ class _SignInScreenState extends State<SignInScreen> {
                     width: 48,
                     height: 48,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(AppRadius.xl)),
-                    child: const Icon(Iconsax.lock, color: AppColors.primary, size: 26),
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(AppRadius.xl),
+                    ),
+                    child: const Icon(
+                      Iconsax.lock,
+                      color: AppColors.primary,
+                      size: 26,
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   Text('Welcome back', style: AppTypography.heroTitle()),
                   const SizedBox(height: AppSpacing.xs),
-                  Text('Sign in to your OfficeHub account', style: AppTypography.heroSubtitle()),
+                  Text(
+                    'Sign in to your OfficeHub account',
+                    style: AppTypography.heroSubtitle(),
+                  ),
                 ],
               ),
             ),
@@ -91,37 +109,58 @@ class _SignInScreenState extends State<SignInScreen> {
                     required: true,
                     leadingIcon: Iconsax.lock,
                     obscureText: _obscure,
-                    trailingIcon: _obscure ? Iconsax.eye : Iconsax.eye_slash,
-                    onTrailingIconPressed: () => setState(() => _obscure = !_obscure),
+                    trailingIcon: _obscure ? Iconsax.eye_slash : Iconsax.eye,
+                    onTrailingIconPressed: () =>
+                        setState(() => _obscure = !_obscure),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const ForgotPasswordScreen(),
+                        ),
                       ),
-                      child: Text('Forgot password?', style: AppTypography.linkMedium()),
+                      child: Text(
+                        'Forgot password?',
+                        style: AppTypography.linkMedium(),
+                      ),
                     ),
                   ),
                   if (auth.errorMessage != null) ...[
                     const SizedBox(height: AppSpacing.sm),
-                    Text(auth.errorMessage!, style: AppTypography.cardMeta(color: AppColors.error)),
+                    Text(
+                      auth.errorMessage!,
+                      style: AppTypography.cardMeta(color: AppColors.error),
+                    ),
                   ],
                   const SizedBox(height: AppSpacing.xl),
-                  AppButton(label: 'Sign in', loading: auth.isLoading, onPressed: () => _submit(auth)),
+                  AppButton(
+                    label: 'Sign in',
+                    loading: auth.isLoading,
+                    onPressed: () => _submit(auth),
+                  ),
                   const SizedBox(height: AppSpacing.lg),
                   Center(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text("Don't have an account? ", style: AppTypography.authBody()),
+                        Text(
+                          "Don't have an account? ",
+                          style: AppTypography.authBody(),
+                        ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => SignUpScreen(onSignedUp: () => Navigator.of(context).pop()),
+                              builder: (_) => SignUpScreen(
+                                onSignedUp: () => Navigator.of(context).pop(),
+                              ),
                             ),
                           ),
-                          child: Text('Sign up', style: AppTypography.authLink()),
+                          child: Text(
+                            'Sign up',
+                            style: AppTypography.authLink(),
+                          ),
                         ),
                       ],
                     ),

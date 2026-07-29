@@ -17,7 +17,9 @@ Future<T?> showAppBottomSheet<T>({
     isScrollControlled: isScrollControlled,
     builder: (context) => SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

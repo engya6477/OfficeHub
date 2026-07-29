@@ -39,8 +39,13 @@ class Visit {
   final VisitStatus status;
   final DateTime createdAt;
 
-  DateTime get arrivalDateTime =>
-      DateTime(visitDate.year, visitDate.month, visitDate.day, arrivalTime.hour, arrivalTime.minute);
+  DateTime get arrivalDateTime => DateTime(
+    visitDate.year,
+    visitDate.month,
+    visitDate.day,
+    arrivalTime.hour,
+    arrivalTime.minute,
+  );
 
   bool get isPast => DateTime.now().isAfter(arrivalDateTime);
 

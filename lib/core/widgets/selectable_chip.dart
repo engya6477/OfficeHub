@@ -24,15 +24,22 @@ class SelectableChip extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.pill),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.sm,
+        ),
         decoration: BoxDecoration(
           color: selected ? AppColors.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(AppRadius.pill),
-          border: Border.all(color: selected ? AppColors.primary : AppColors.placeholder),
+          border: Border.all(
+            color: selected ? AppColors.primary : AppColors.placeholder,
+          ),
         ),
         child: Text(
           label,
-          style: AppTypography.chipLabel(color: selected ? AppColors.onPrimary : AppColors.textPrimary),
+          style: AppTypography.chipLabel(
+            color: selected ? AppColors.onPrimary : AppColors.textPrimary,
+          ),
         ),
       ),
     );

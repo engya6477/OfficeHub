@@ -23,10 +23,18 @@ class VisitDetailsScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Cancel visit?'),
-        content: const Text('This visit will be cancelled and moved to your history.'),
+        content: const Text(
+          'This visit will be cancelled and moved to your history.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Keep visit')),
-          TextButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('Cancel visit')),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Keep visit'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Cancel visit'),
+          ),
         ],
       ),
     );
@@ -37,7 +45,9 @@ class VisitDetailsScreen extends StatelessWidget {
       if (context.mounted) Navigator.of(context).pop();
     } on VisitException catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
       }
     }
   }
@@ -68,12 +78,20 @@ class VisitDetailsScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(visit.visitorName, style: AppTypography.heading().copyWith(fontSize: 22))),
+                  Expanded(
+                    child: Text(
+                      visit.visitorName,
+                      style: AppTypography.feedbackTitle(),
+                    ),
+                  ),
                   StatusBadge(label: visit.displayStatusLabel, tone: tone),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(visit.visitorPhone, style: AppTypography.cardMeta(color: AppColors.textMuted)),
+              Text(
+                visit.visitorPhone,
+                style: AppTypography.cardMeta(color: AppColors.textMuted),
+              ),
               const SizedBox(height: AppSpacing.xl),
               Container(
                 width: double.infinity,
@@ -87,7 +105,10 @@ class VisitDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _Row('Date', DateTimeFormat.friendlyDate(visit.visitDate)),
-                    _Row('Arrival time', DateTimeFormat.time(visit.arrivalTime)),
+                    _Row(
+                      'Arrival time',
+                      DateTimeFormat.time(visit.arrivalTime),
+                    ),
                     _Row('Purpose', visit.purpose.label),
                     _Row('Location', visit.meetingLocation),
                   ],
@@ -108,7 +129,10 @@ class VisitDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                AppButton(label: 'Cancel', onPressed: () => _cancel(context, visit)),
+                AppButton(
+                  label: 'Cancel',
+                  onPressed: () => _cancel(context, visit),
+                ),
               ],
             ],
           ),
@@ -130,7 +154,7 @@ class _Row extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: AppTypography.body(color: AppColors.textMuted))),
+          Expanded(child: Text(label, style: AppTypography.authBody())),
           Text(value, style: AppTypography.listTitle()),
         ],
       ),

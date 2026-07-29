@@ -30,7 +30,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     final success = await auth.sendPasswordReset(email: _emailController.text);
     if (success && mounted) {
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => CheckEmailScreen(email: _emailController.text)),
+        MaterialPageRoute(
+          builder: (_) => CheckEmailScreen(email: _emailController.text),
+        ),
       );
     }
   }
@@ -47,11 +49,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Forgot your password?', style: AppTypography.heading().copyWith(fontSize: 22)),
+              Text(
+                'Forgot your password?',
+                style: AppTypography.feedbackTitle(),
+              ),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 "Enter your work email and we'll send you instructions to reset your password.",
-                style: AppTypography.body(color: AppColors.textMuted),
+                style: AppTypography.authBody(),
               ),
               const SizedBox(height: AppSpacing.xxl),
               AppTextField(
@@ -64,10 +69,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               if (auth.errorMessage != null) ...[
                 const SizedBox(height: AppSpacing.sm),
-                Text(auth.errorMessage!, style: AppTypography.cardMeta(color: AppColors.error)),
+                Text(
+                  auth.errorMessage!,
+                  style: AppTypography.cardMeta(color: AppColors.error),
+                ),
               ],
               const SizedBox(height: AppSpacing.xl),
-              AppButton(label: 'Send reset instructions', loading: auth.isLoading, onPressed: () => _submit(auth)),
+              AppButton(
+                label: 'Send reset instructions',
+                loading: auth.isLoading,
+                onPressed: () => _submit(auth),
+              ),
             ],
           ),
         ),

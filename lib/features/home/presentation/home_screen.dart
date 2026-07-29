@@ -23,7 +23,9 @@ class HomeScreen extends StatelessWidget {
 
   bool _isToday(DateTime date) {
     final now = DateTime.now();
-    return date.year == now.year && date.month == now.month && date.day == now.day;
+    return date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day;
   }
 
   @override
@@ -33,8 +35,12 @@ class HomeScreen extends StatelessWidget {
     final visits = context.watch<VisitsController>();
     final roomRepo = context.read<RoomRepository>();
 
-    final todayBookings = bookings.upcoming.where((b) => _isToday(b.date)).toList();
-    final todayVisits = visits.upcoming.where((v) => _isToday(v.visitDate)).toList();
+    final todayBookings = bookings.upcoming
+        .where((b) => _isToday(b.date))
+        .toList();
+    final todayVisits = visits.upcoming
+        .where((v) => _isToday(v.visitDate))
+        .toList();
     final hasToday = todayBookings.isNotEmpty || todayVisits.isNotEmpty;
 
     return Scaffold(
@@ -44,17 +50,38 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.xl),
           children: [
             InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const RoomSearchScreen())),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const RoomSearchScreen()),
+              ),
               borderRadius: BorderRadius.circular(AppRadius.sm),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
-                decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(AppRadius.sm)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.md,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(AppRadius.sm),
+                ),
                 child: Row(
                   children: [
-                    const Icon(Iconsax.search_normal, size: 20, color: AppColors.textMutedAlt),
+                    const Icon(
+                      Iconsax.search_normal,
+                      size: 20,
+                      color: AppColors.textMutedAlt,
+                    ),
                     const SizedBox(width: AppSpacing.sm),
-                    Expanded(child: Text('Search any Room', style: AppTypography.bodyPlaceholder())),
-                    const Icon(Iconsax.microphone_2, size: 20, color: AppColors.textMutedAlt),
+                    Expanded(
+                      child: Text(
+                        'Search any Room',
+                        style: AppTypography.bodyPlaceholder(),
+                      ),
+                    ),
+                    const Icon(
+                      Iconsax.microphone_2,
+                      size: 20,
+                      color: AppColors.textMutedAlt,
+                    ),
                   ],
                 ),
               ),
@@ -70,7 +97,12 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text('Welcome', style: AppTypography.heading()),
-                          Text(' , ${employee.firstName}', style: AppTypography.heading(color: AppColors.primary)),
+                          Text(
+                            ' , ${employee.firstName}',
+                            style: AppTypography.heading(
+                              color: AppColors.primary,
+                            ),
+                          ),
                         ],
                       ),
                       Text(employee.company, style: AppTypography.caption()),
@@ -78,13 +110,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProfileScreen())),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                  ),
                   child: AppAvatar(initial: employee.initial),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.xxl),
-            Text('What would you like to do?', style: AppTypography.sectionTitle()),
+            Text(
+              'What would you like to do?',
+              style: AppTypography.sectionTitle(),
+            ),
             const SizedBox(height: AppSpacing.sm),
             Row(
               children: [
@@ -94,8 +131,11 @@ class HomeScreen extends StatelessWidget {
                     label: 'Book a room',
                     iconBackground: AppColors.primarySurface,
                     iconColor: AppColors.primary,
-                    onTap: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => const BookingCriteriaScreen())),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const BookingCriteriaScreen(),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),
@@ -105,8 +145,11 @@ class HomeScreen extends StatelessWidget {
                     label: 'Register visitor',
                     iconBackground: AppColors.visitorAccentSurface,
                     iconColor: AppColors.visitorAccent,
-                    onTap: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => const RegisterVisitorScreen())),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const RegisterVisitorScreen(),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -135,12 +178,19 @@ class HomeScreen extends StatelessWidget {
                     icon: Iconsax.calendar_1,
                     iconBackground: AppColors.primarySurface,
                     iconColor: AppColors.primary,
-                    title: booking.title ?? roomRepo.getById(booking.roomId)?.name ?? 'Room',
-                    subtitle: '${DateTimeFormat.time(booking.startTime)} · ${roomRepo.getById(booking.roomId)?.name ?? ''}',
+                    title:
+                        booking.title ??
+                        roomRepo.getById(booking.roomId)?.name ??
+                        'Room',
+                    subtitle:
+                        '${DateTimeFormat.time(booking.startTime)} · ${roomRepo.getById(booking.roomId)?.name ?? ''}',
                     time: DateTimeFormat.time(booking.startTime),
                     timeColor: AppColors.primary,
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => BookingDetailsScreen(bookingId: booking.id)),
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            BookingDetailsScreen(bookingId: booking.id),
+                      ),
                     ),
                   ),
                 ),
@@ -156,7 +206,9 @@ class HomeScreen extends StatelessWidget {
                     time: DateTimeFormat.time(visit.arrivalTime),
                     timeColor: AppColors.visitorAccent,
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => VisitDetailsScreen(visitId: visit.id)),
+                      MaterialPageRoute(
+                        builder: (_) => VisitDetailsScreen(visitId: visit.id),
+                      ),
                     ),
                   ),
                 ),
@@ -201,7 +253,10 @@ class _QuickAction extends StatelessWidget {
             Container(
               width: 44,
               height: 44,
-              decoration: BoxDecoration(color: iconBackground, borderRadius: BorderRadius.circular(AppRadius.lg)),
+              decoration: BoxDecoration(
+                color: iconBackground,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
               child: Icon(icon, color: iconColor),
             ),
             const SizedBox(height: AppSpacing.md),
@@ -251,7 +306,10 @@ class _ActivityCard extends StatelessWidget {
             Container(
               width: 40,
               height: 40,
-              decoration: BoxDecoration(color: iconBackground, borderRadius: BorderRadius.circular(AppRadius.lg)),
+              decoration: BoxDecoration(
+                color: iconBackground,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
               child: Icon(icon, size: 20, color: iconColor),
             ),
             const SizedBox(width: AppSpacing.md),

@@ -37,8 +37,16 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.xl, AppSpacing.lg, AppSpacing.xl, 0),
-              child: Text('Rooms', style: AppTypography.heading().copyWith(fontSize: 24)),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.xl,
+                AppSpacing.lg,
+                AppSpacing.xl,
+                0,
+              ),
+              child: Text(
+                'Rooms',
+                style: AppTypography.heading().copyWith(fontSize: 24),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(AppSpacing.xl),
@@ -48,17 +56,33 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
                 ),
                 borderRadius: BorderRadius.circular(AppRadius.sm),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.lg,
+                    vertical: AppSpacing.md,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.surface,
                     borderRadius: BorderRadius.circular(AppRadius.sm),
                   ),
                   child: Row(
                     children: [
-                      const Icon(Iconsax.search_normal, size: 20, color: AppColors.textMutedAlt),
+                      const Icon(
+                        Iconsax.search_normal,
+                        size: 20,
+                        color: AppColors.textMutedAlt,
+                      ),
                       const SizedBox(width: AppSpacing.sm),
-                      Expanded(child: Text('Search any Room', style: AppTypography.bodyPlaceholder())),
-                      const Icon(Iconsax.microphone_2, size: 20, color: AppColors.textMutedAlt),
+                      Expanded(
+                        child: Text(
+                          'Search any Room',
+                          style: AppTypography.bodyPlaceholder(),
+                        ),
+                      ),
+                      const Icon(
+                        Iconsax.microphone_2,
+                        size: 20,
+                        color: AppColors.textMutedAlt,
+                      ),
                     ],
                   ),
                 ),
@@ -70,7 +94,9 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
                 width: double.infinity,
                 child: FilledButton.icon(
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const BookingCriteriaScreen()),
+                    MaterialPageRoute(
+                      builder: (_) => const BookingCriteriaScreen(),
+                    ),
                   ),
                   icon: const Icon(Iconsax.calendar_add),
                   label: const Text('Find a room'),
@@ -96,16 +122,25 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
               child: list.isEmpty
                   ? EmptyState(
                       icon: Iconsax.calendar_1,
-                      title: _segment == 0 ? 'No upcoming bookings' : 'No booking history yet',
+                      title: _segment == 0
+                          ? 'No upcoming bookings'
+                          : 'No booking history yet',
                       message: _segment == 0
                           ? 'Book a meeting room to see it listed here.'
                           : 'Your past and cancelled bookings will appear here.',
                     )
                   : ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(AppSpacing.xl, 0, AppSpacing.xl, AppSpacing.xl),
+                      padding: const EdgeInsets.fromLTRB(
+                        AppSpacing.xl,
+                        0,
+                        AppSpacing.xl,
+                        AppSpacing.xl,
+                      ),
                       itemCount: list.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
-                      itemBuilder: (context, index) => _BookingListTile(booking: list[index]),
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(height: AppSpacing.md),
+                      itemBuilder: (context, index) =>
+                          _BookingListTile(booking: list[index]),
                     ),
             ),
           ],
@@ -116,7 +151,11 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
 }
 
 class _SegmentToggle extends StatelessWidget {
-  const _SegmentToggle({required this.value, required this.labels, required this.onChanged});
+  const _SegmentToggle({
+    required this.value,
+    required this.labels,
+    required this.onChanged,
+  });
 
   final int value;
   final List<String> labels;
@@ -126,7 +165,10 @@ class _SegmentToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(color: AppColors.chipBackground, borderRadius: BorderRadius.circular(AppRadius.sm)),
+      decoration: BoxDecoration(
+        color: AppColors.chipBackground,
+        borderRadius: BorderRadius.circular(AppRadius.sm),
+      ),
       child: Row(
         children: List.generate(labels.length, (index) {
           final selected = index == value;
@@ -143,7 +185,11 @@ class _SegmentToggle extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   labels[index],
-                  style: AppTypography.listTitle(color: selected ? AppColors.textPrimary : AppColors.textMuted),
+                  style: AppTypography.listTitle(
+                    color: selected
+                        ? AppColors.textPrimary
+                        : AppColors.textMuted,
+                  ),
                 ),
               ),
             ),
@@ -171,7 +217,9 @@ class _BookingListTile extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.xl),
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => BookingDetailsScreen(bookingId: booking.id)),
+        MaterialPageRoute(
+          builder: (_) => BookingDetailsScreen(bookingId: booking.id),
+        ),
       ),
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.lg),
@@ -185,8 +233,15 @@ class _BookingListTile extends StatelessWidget {
             Container(
               width: 40,
               height: 40,
-              decoration: BoxDecoration(color: AppColors.primarySurface, borderRadius: BorderRadius.circular(AppRadius.lg)),
-              child: const Icon(Iconsax.calendar_1, size: 20, color: AppColors.primary),
+              decoration: BoxDecoration(
+                color: AppColors.primarySurface,
+                borderRadius: BorderRadius.circular(AppRadius.lg),
+              ),
+              child: const Icon(
+                Iconsax.calendar_1,
+                size: 20,
+                color: AppColors.primary,
+              ),
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(

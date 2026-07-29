@@ -23,11 +23,7 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = const [
-      HomeScreen(),
-      RoomsTabScreen(),
-      VisitorsTabScreen(),
-    ];
+    final tabs = const [HomeScreen(), RoomsTabScreen(), VisitorsTabScreen()];
 
     return Scaffold(
       body: IndexedStack(index: _index, children: tabs),

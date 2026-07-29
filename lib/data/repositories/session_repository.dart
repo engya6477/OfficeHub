@@ -17,7 +17,11 @@ abstract class SessionRepository {
 
   Future<void> signIn({required String email, required String password});
 
-  Future<void> signUp({required String name, required String email, required String password});
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  });
 
   Future<void> sendPasswordReset({required String email});
 }

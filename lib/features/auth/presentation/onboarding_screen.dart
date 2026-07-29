@@ -6,7 +6,11 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/widgets/app_button.dart';
 
 class _OnboardingSlide {
-  const _OnboardingSlide({required this.image, required this.title, required this.message});
+  const _OnboardingSlide({
+    required this.image,
+    required this.title,
+    required this.message,
+  });
 
   final String image;
   final String title;
@@ -17,7 +21,8 @@ const _slides = [
   _OnboardingSlide(
     image: 'assets/images/onboarding_manage_office.png',
     title: 'Manage your office in one place',
-    message: 'Book meeting rooms, register visitors and manage your schedule easily.',
+    message:
+        'Book meeting rooms, register visitors and manage your schedule easily.',
   ),
   _OnboardingSlide(
     image: 'assets/images/onboarding_book_rooms.png',
@@ -27,7 +32,8 @@ const _slides = [
   _OnboardingSlide(
     image: 'assets/images/onboarding_visitors.png',
     title: 'Welcome visitors seamlessly',
-    message: 'Register your visitors before they arrive and keep your workplace secure.',
+    message:
+        'Register your visitors before they arrive and keep your workplace secure.',
   ),
 ];
 
@@ -49,7 +55,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       widget.onFinished();
       return;
     }
-    _controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    _controller.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
@@ -66,7 +75,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: TextButton(
                   onPressed: widget.onFinished,
-                  child: Text('Skip', style: AppTypography.inputLabel(color: AppColors.textMutedAlt)),
+                  child: Text(
+                    'Skip',
+                    style: AppTypography.inputLabel(
+                      color: AppColors.textMutedAlt,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -78,15 +92,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 itemBuilder: (context, index) {
                   final slide = _slides[index];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.xxl,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(slide.image, width: 215, height: 215),
                         const SizedBox(height: AppSpacing.xxxl),
-                        Text(slide.title, style: AppTypography.onboardingTitle(), textAlign: TextAlign.center),
+                        Text(
+                          slide.title,
+                          style: AppTypography.onboardingTitle(),
+                          textAlign: TextAlign.center,
+                        ),
                         const SizedBox(height: AppSpacing.md),
-                        Text(slide.message, style: AppTypography.onboardingMessage(), textAlign: TextAlign.center),
+                        Text(
+                          slide.message,
+                          style: AppTypography.onboardingMessage(),
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   );
@@ -111,7 +135,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(AppSpacing.xl),
-              child: AppButton(label: isLast ? 'Get Started' : 'Next', onPressed: _next),
+              child: AppButton(
+                label: isLast ? 'Get Started' : 'Next',
+                onPressed: _next,
+              ),
             ),
           ],
         ),

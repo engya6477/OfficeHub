@@ -15,8 +15,11 @@ abstract final class AppColors {
 
   static const Color success = Color(0xFF007A55);
   static const Color successIcon = Color(0xFF00BC7D);
-  static const Color successSurface = Color(0xFFEAFFE9);
+  static const Color successSurface = Color(0xFFECFDF5);
   static const Color error = Color(0xFFCE3333);
+
+  /// Destructive action red used specifically for the Sign out button.
+  static const Color destructive = Color(0xFFEF4444);
   static const Color focus = Color(0xFF147E24);
 
   static const Color textPrimary = Color(0xFF0E0F0E);

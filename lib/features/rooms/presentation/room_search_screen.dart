@@ -20,7 +20,11 @@ class RoomSearchScreen extends StatefulWidget {
 
 class _RoomSearchScreenState extends State<RoomSearchScreen> {
   final _searchController = TextEditingController();
-  final List<String> _recentSearches = ['Atlas Room', 'Horizon Room', 'Main Lobby'];
+  final List<String> _recentSearches = [
+    'Atlas Room',
+    'Horizon Room',
+    'Main Lobby',
+  ];
   RoomFilters _filters = const RoomFilters();
   bool _isListening = false;
 
@@ -51,61 +55,117 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final allRooms = context.read<RoomRepository>().search(_searchController.text);
+    final allRooms = context.read<RoomRepository>().search(
+      _searchController.text,
+    );
     final rooms = allRooms
-        .where((r) => _filters.minAttendees == null || r.capacity >= _filters.minAttendees!)
+        .where(
+          (r) =>
+              _filters.minAttendees == null ||
+              r.capacity >= _filters.minAttendees!,
+        )
         .where((r) => _filters.facilities.every(r.facilities.contains))
         .toList();
     final query = _searchController.text.trim();
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Search'),
-        actions: [
-          IconButton(
-            icon: const Icon(Iconsax.setting_4),
-            onPressed: _openFilters,
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Search')),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.all(AppSpacing.xl),
-              child: TextField(
-                controller: _searchController,
-                onChanged: (_) => setState(() {}),
-                decoration: InputDecoration(
-                  hintText: 'Search any Room',
-                  prefixIcon: const Icon(Iconsax.search_normal, size: 20, color: AppColors.textMutedAlt),
-                  suffixIcon: IconButton(
-                    icon: Icon(Iconsax.microphone_2, color: _isListening ? AppColors.primary : AppColors.textMutedAlt),
-                    onPressed: _startVoiceSearch,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 44,
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (_) => setState(() {}),
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.sm,
+                            vertical: AppSpacing.sm,
+                          ),
+                          hintText: 'Search any Room',
+                          prefixIcon: const Icon(
+                            Iconsax.search_normal,
+                            size: 20,
+                            color: AppColors.textMutedAlt,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Iconsax.microphone_2,
+                              size: 20,
+                              color: _isListening
+                                  ? AppColors.primary
+                                  : AppColors.textMutedAlt,
+                            ),
+                            onPressed: _startVoiceSearch,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: AppSpacing.sm),
+                  SizedBox(
+                    width: 44,
+                    height: 44,
+                    child: Material(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(AppRadius.sm),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(AppRadius.sm),
+                        onTap: _openFilters,
+                        child: const Icon(
+                          Iconsax.filter,
+                          color: AppColors.onPrimary,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             if (query.isEmpty && _recentSearches.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-                child: Text('Recent Search', style: AppTypography.sectionTitle()),
+                child: Text(
+                  'Recent Search',
+                  style: AppTypography.sectionTitle(),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(AppSpacing.xl, AppSpacing.sm, AppSpacing.xl, 0),
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.xl,
+                  AppSpacing.sm,
+                  AppSpacing.xl,
+                  0,
+                ),
                 child: Wrap(
                   spacing: AppSpacing.sm,
                   runSpacing: AppSpacing.sm,
                   children: _recentSearches
-                      .map((term) => Chip(
-                            avatar: const Icon(Iconsax.clock, size: 16, color: AppColors.textMutedAlt),
-                            label: Text(term, style: AppTypography.body()),
-                            onDeleted: () => setState(() => _recentSearches.remove(term)),
-                            backgroundColor: AppColors.surface,
-                            side: const BorderSide(color: AppColors.border),
-                          ))
+                      .map(
+                        (term) => Chip(
+                          avatar: const Icon(
+                            Iconsax.clock,
+                            size: 16,
+                            color: AppColors.textMutedAlt,
+                          ),
+                          label: Text(term, style: AppTypography.body()),
+                          onDeleted: () =>
+                              setState(() => _recentSearches.remove(term)),
+                          backgroundColor: AppColors.surface,
+                          side: const BorderSide(color: AppColors.border),
+                        ),
+                      )
                       .toList(),
                 ),
               ),
@@ -113,7 +173,10 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
             ],
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-              child: Text(query.isEmpty ? 'Most Searched' : 'Results', style: AppTypography.sectionTitle()),
+              child: Text(
+                query.isEmpty ? 'Most Searched' : 'Results',
+                style: AppTypography.sectionTitle(),
+              ),
             ),
             const SizedBox(height: AppSpacing.sm),
             Expanded(
@@ -124,20 +187,30 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
                       message: 'Try a different name or adjust your filters.',
                     )
                   : ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(AppSpacing.xl, 0, AppSpacing.xl, AppSpacing.xl),
+                      padding: const EdgeInsets.fromLTRB(
+                        AppSpacing.xl,
+                        0,
+                        AppSpacing.xl,
+                        AppSpacing.xl,
+                      ),
                       itemCount: rooms.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(height: AppSpacing.md),
                       itemBuilder: (context, index) {
                         final room = rooms[index];
                         return RoomCard(
                           room: room,
                           onTap: () {
                             if (!_recentSearches.contains(room.name)) {
-                              setState(() => _recentSearches.insert(0, room.name));
+                              setState(
+                                () => _recentSearches.insert(0, room.name),
+                              );
                             }
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => BookingCriteriaScreen(preselectedRoomId: room.id),
+                                builder: (_) => BookingCriteriaScreen(
+                                  preselectedRoomId: room.id,
+                                ),
                               ),
                             );
                           },
@@ -168,11 +241,18 @@ class _VoiceSearchSheet extends StatelessWidget {
             Container(
               width: 88,
               height: 88,
-              decoration: const BoxDecoration(color: AppColors.primarySurface, shape: BoxShape.circle),
-              child: const Icon(Iconsax.microphone_2, size: 40, color: AppColors.primary),
+              decoration: const BoxDecoration(
+                color: AppColors.primarySurface,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Iconsax.microphone_2,
+                size: 40,
+                color: AppColors.primary,
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text('Listening.....', style: AppTypography.body(color: AppColors.textMuted)),
+            Text('Listening.....', style: AppTypography.authBody()),
             const SizedBox(height: AppSpacing.xl),
           ],
         ),

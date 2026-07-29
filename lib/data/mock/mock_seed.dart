@@ -1,3 +1,5 @@
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+
 import '../models/employee.dart';
 import '../models/meeting_room.dart';
 import '../models/room_facility.dart';
@@ -20,8 +22,12 @@ abstract final class MockSeed {
       floor: 'Floor 2',
       wing: 'East Wing',
       capacity: 8,
-      facilities: [RoomFacility.display, RoomFacility.whiteboard, RoomFacility.videoConferencing],
-      photoCount: 2,
+      facilities: [
+        RoomFacility.display,
+        RoomFacility.whiteboard,
+        RoomFacility.videoConferencing,
+      ],
+      photoAssets: ['assets/images/room_atlas.jpg'],
     ),
     MeetingRoom(
       id: 'room-horizon',
@@ -30,7 +36,7 @@ abstract final class MockSeed {
       wing: 'West Wing',
       capacity: 12,
       facilities: [RoomFacility.display, RoomFacility.videoConferencing],
-      photoCount: 1,
+      placeholderIcon: Iconsax.sun_1,
     ),
     MeetingRoom(
       id: 'room-lobby',
@@ -39,7 +45,7 @@ abstract final class MockSeed {
       wing: 'Reception',
       capacity: 4,
       facilities: [RoomFacility.display],
-      photoCount: 1,
+      placeholderIcon: Iconsax.building,
     ),
     MeetingRoom(
       id: 'room-summit',
@@ -47,8 +53,12 @@ abstract final class MockSeed {
       floor: 'Floor 4',
       wing: 'North Wing',
       capacity: 20,
-      facilities: [RoomFacility.display, RoomFacility.whiteboard, RoomFacility.videoConferencing],
-      photoCount: 1,
+      facilities: [
+        RoomFacility.display,
+        RoomFacility.whiteboard,
+        RoomFacility.videoConferencing,
+      ],
+      placeholderIcon: Iconsax.chart_2,
     ),
     MeetingRoom(
       id: 'room-nook',
@@ -57,9 +67,13 @@ abstract final class MockSeed {
       wing: 'South Wing',
       capacity: 4,
       facilities: [RoomFacility.whiteboard],
-      photoCount: 1,
+      placeholderIcon: Iconsax.volume_mute,
     ),
   ];
 
-  static const List<String> visitLocations = ['Main Lobby', 'Floor 3 Lounge', 'Atlas Room'];
+  static const List<String> visitLocations = [
+    'Main Lobby',
+    'Floor 3 Lounge',
+    'Atlas Room',
+  ];
 }

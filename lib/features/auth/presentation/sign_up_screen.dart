@@ -65,7 +65,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Fill in your details to get started.', style: AppTypography.authBody()),
+              Text(
+                'Fill in your details to get started.',
+                style: AppTypography.authBody(),
+              ),
               const SizedBox(height: AppSpacing.xxl),
               AppTextField(
                 label: 'Full Name',
@@ -99,8 +102,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 required: true,
                 leadingIcon: Iconsax.lock,
                 obscureText: _obscurePassword,
-                trailingIcon: _obscurePassword ? Iconsax.eye : Iconsax.eye_slash,
-                onTrailingIconPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                trailingIcon: _obscurePassword
+                    ? Iconsax.eye_slash
+                    : Iconsax.eye,
+                onTrailingIconPressed: () =>
+                    setState(() => _obscurePassword = !_obscurePassword),
               ),
               const SizedBox(height: AppSpacing.lg),
               AppTextField(
@@ -110,21 +116,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 required: true,
                 leadingIcon: Iconsax.lock,
                 obscureText: _obscureConfirm,
-                trailingIcon: _obscureConfirm ? Iconsax.eye : Iconsax.eye_slash,
-                onTrailingIconPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                trailingIcon: _obscureConfirm ? Iconsax.eye_slash : Iconsax.eye,
+                onTrailingIconPressed: () =>
+                    setState(() => _obscureConfirm = !_obscureConfirm),
               ),
               if (errorMessage != null) ...[
                 const SizedBox(height: AppSpacing.sm),
-                Text(errorMessage, style: AppTypography.cardMeta(color: AppColors.error)),
+                Text(
+                  errorMessage,
+                  style: AppTypography.cardMeta(color: AppColors.error),
+                ),
               ],
               const SizedBox(height: AppSpacing.xl),
-              AppButton(label: 'Create account', loading: auth.isLoading, onPressed: () => _submit(auth)),
+              AppButton(
+                label: 'Create account',
+                loading: auth.isLoading,
+                onPressed: () => _submit(auth),
+              ),
               const SizedBox(height: AppSpacing.lg),
               Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Already have an account? ', style: AppTypography.authBody()),
+                    Text(
+                      'Already have an account? ',
+                      style: AppTypography.authBody(),
+                    ),
                     GestureDetector(
                       onTap: () => Navigator.of(context).pop(),
                       child: Text('Sign in', style: AppTypography.authLink()),
