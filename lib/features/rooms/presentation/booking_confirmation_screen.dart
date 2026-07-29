@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_typography.dart';
+import '../../../core/utils/date_time_format.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../data/models/booking.dart';
+import '../../../data/repositories/room_repository.dart';
+import 'booking_details_screen.dart';
+
+class BookingConfirmationScreen extends StatelessWidget {
+  const BookingConfirmationScreen({super.key, required this.booking});
+
+  final Booking booking;
+
+  @override
+  Widget build(BuildContext context) {
+    final room = context.read<RoomRepository>().getById(booking.roomId);
+
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: AppColors.surface,
+        appBar: AppBar(title: const Text('Review booking'), automaticallyImplyLeading: false),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: AppSpacing.xxl),
+                Container(
+                  width: 72,
+                  height: 72,
+                  decoration: const BoxDecoration(color: AppColors.successSurface, shape: BoxShape.circle),
+                  child: const Icon(Iconsax.tick_circle, color: AppColors.success, size: 36),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                Text("You're all set!", style: AppTypography.heading().copyWith(fontSize: 22)),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  '${room?.name ?? 'Room'} is booked for '
+                  '${DateTimeFormat.friendlyDate(booking.date)} · '
+                  '${DateTimeFormat.timeRange(booking.startTime, booking.endTime)}.',
+                  style: AppTypography.body(color: AppColors.textMuted),
+                ),
+                const Spacer(),
+                AppButton(
+                  label: 'View booking',
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => BookingDetailsScreen(bookingId: booking.id)),
+                    );
+                  },
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                AppButton(
+                  label: 'Done',
+                  variant: AppButtonVariant.outline,
+                  onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
