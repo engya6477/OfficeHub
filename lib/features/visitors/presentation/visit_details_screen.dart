@@ -64,7 +64,7 @@ class VisitDetailsScreen extends StatelessWidget {
 
     final tone = switch (visit.displayStatusLabel) {
       'Cancelled' => StatusTone.error,
-      'Completed' => StatusTone.neutral,
+      'Past' => StatusTone.neutral,
       _ => StatusTone.info,
     };
 

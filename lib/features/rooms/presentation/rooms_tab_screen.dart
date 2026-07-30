@@ -8,6 +8,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_time_format.dart';
 import '../../../core/widgets/app_icon.dart';
+import '../../../core/widgets/dot_row.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../data/models/booking.dart';
@@ -210,9 +211,14 @@ class _BookingListTile extends StatelessWidget {
     final room = context.read<RoomRepository>().getById(booking.roomId);
     final tone = switch (booking.displayStatusLabel) {
       'Cancelled' => StatusTone.error,
-      'Completed' => StatusTone.neutral,
+      'Past' => StatusTone.neutral,
       _ => StatusTone.info,
     };
+    final durationLabel = booking.durationMinutes < 60
+        ? '${booking.durationMinutes} min'
+        : booking.durationMinutes % 60 == 0
+        ? '${booking.durationMinutes ~/ 60} hr'
+        : '${booking.durationMinutes ~/ 60} hr ${booking.durationMinutes % 60} min';
 
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.xl),
@@ -228,36 +234,38 @@ class _BookingListTile extends StatelessWidget {
           border: Border.all(color: AppColors.border),
           borderRadius: BorderRadius.circular(AppRadius.xl),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColors.primarySurface,
-                borderRadius: BorderRadius.circular(AppRadius.lg),
-              ),
-              child: const Icon(
-                Iconsax.calendar_1,
-                size: 20,
-                color: AppColors.primary,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(room?.name ?? 'Room', style: AppTypography.listTitle()),
-                  const SizedBox(height: 2),
-                  Text(
-                    '${DateTimeFormat.friendlyDate(booking.date)} · ${DateTimeFormat.time(booking.startTime)}',
-                    style: AppTypography.cardMeta(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        room?.name ?? 'Room',
+                        style: AppTypography.cardTitle(),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        room?.location ?? '',
+                        style: AppTypography.cardMeta(),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                StatusBadge(label: booking.displayStatusLabel, tone: tone),
+              ],
             ),
-            StatusBadge(label: booking.displayStatusLabel, tone: tone),
+            const SizedBox(height: AppSpacing.sm),
+            DotRow(
+              DateTimeFormat.friendlyDate(booking.date),
+              DateTimeFormat.timeRange(booking.startTime, booking.endTime),
+            ),
+            const SizedBox(height: 4),
+            DotRow('${booking.attendees} attendees', durationLabel, meta: true),
           ],
         ),
       ),

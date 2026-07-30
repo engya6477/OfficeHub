@@ -52,6 +52,22 @@ class MockBookingRepository implements BookingRepository {
         createdAt: now.subtract(const Duration(days: 5)),
       ),
     );
+    // Cancelled booking, so history shows both a past and a cancelled
+    // record out of the box, matching the Figma history frame.
+    _bookings.add(
+      Booking(
+        id: _uuid.v4(),
+        roomId: 'room-summit',
+        employeeId: 'emp-1',
+        date: today.subtract(const Duration(days: 4)),
+        startTime: const TimeOfDay(hour: 10, minute: 0),
+        durationMinutes: 60,
+        attendees: 5,
+        facilities: const [RoomFacility.display],
+        status: BookingStatus.cancelled,
+        createdAt: now.subtract(const Duration(days: 6)),
+      ),
+    );
   }
 
   @override

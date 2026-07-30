@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_time_format.dart';
+import '../../../core/widgets/dot_row.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../data/models/visit.dart';
@@ -166,7 +167,7 @@ class _VisitListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final tone = switch (visit.displayStatusLabel) {
       'Cancelled' => StatusTone.error,
-      'Completed' => StatusTone.neutral,
+      'Past' => StatusTone.neutral,
       _ => StatusTone.info,
     };
 
@@ -184,45 +185,30 @@ class _VisitListTile extends StatelessWidget {
           border: Border.all(color: AppColors.border),
           borderRadius: BorderRadius.circular(AppRadius.xl),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColors.visitorAccentSurface,
-                borderRadius: BorderRadius.circular(AppRadius.lg),
-              ),
-              child: const Icon(
-                Iconsax.profile_2user,
-                size: 20,
-                color: AppColors.visitorAccent,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(visit.visitorName, style: AppTypography.listTitle()),
-                  const SizedBox(height: 2),
-                  Text(
-                    '${visit.purpose.label} · ${visit.meetingLocation}',
-                    style: AppTypography.cardMeta(),
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StatusBadge(label: visit.displayStatusLabel, tone: tone),
-                const SizedBox(height: 4),
-                Text(
-                  DateTimeFormat.time(visit.arrivalTime),
-                  style: AppTypography.cardMeta(),
+                Expanded(
+                  child: Text(
+                    visit.visitorName,
+                    style: AppTypography.cardTitle(),
+                  ),
                 ),
+                StatusBadge(label: visit.displayStatusLabel, tone: tone),
               ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            DotRow(
+              DateTimeFormat.friendlyDate(visit.visitDate),
+              DateTimeFormat.time(visit.arrivalTime),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${visit.purpose.label} · ${visit.meetingLocation}',
+              style: AppTypography.historyMeta(),
             ),
           ],
         ),

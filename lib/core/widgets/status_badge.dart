@@ -6,7 +6,8 @@ import '../theme/app_typography.dart';
 
 enum StatusTone { info, success, error, neutral }
 
-/// Small pill badge used to mark booking/visit status in list and detail views.
+/// Pill status badge matching the exact "StatusBadge" component from the
+/// Rooms/Visitors history cards (Upcoming/Past/Cancelled).
 class StatusBadge extends StatelessWidget {
   const StatusBadge({super.key, required this.label, required this.tone});
 
@@ -16,22 +17,28 @@ class StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (Color bg, Color fg) = switch (tone) {
-      StatusTone.info => (AppColors.primarySurface, AppColors.primary),
+      StatusTone.info => (
+        AppColors.statusUpcomingBg,
+        AppColors.statusUpcomingFg,
+      ),
       StatusTone.success => (AppColors.successSurface, AppColors.success),
-      StatusTone.error => (const Color(0xFFFFF1F1), AppColors.error),
-      StatusTone.neutral => (AppColors.chipBackground, AppColors.textSecondary),
+      StatusTone.error => (
+        AppColors.statusCancelledBg,
+        AppColors.statusCancelledFg,
+      ),
+      StatusTone.neutral => (AppColors.statusPastBg, AppColors.statusPastFg),
     };
 
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
+        horizontal: AppSpacing.md,
         vertical: AppSpacing.xs,
       ),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(AppRadius.md),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
-      child: Text(label, style: AppTypography.cardMeta(color: fg)),
+      child: Text(label, style: AppTypography.statusBadge(color: fg)),
     );
   }
 }

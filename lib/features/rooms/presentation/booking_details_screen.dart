@@ -72,7 +72,7 @@ class BookingDetailsScreen extends StatelessWidget {
 
     final tone = switch (booking.displayStatusLabel) {
       'Cancelled' => StatusTone.error,
-      'Completed' => StatusTone.neutral,
+      'Past' => StatusTone.neutral,
       _ => StatusTone.info,
     };
 

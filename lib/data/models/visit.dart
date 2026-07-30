@@ -54,7 +54,7 @@ class Visit {
 
   String get displayStatusLabel {
     if (status == VisitStatus.cancelled) return 'Cancelled';
-    if (isPast) return 'Completed';
+    if (isPast) return 'Past';
     return 'Upcoming';
   }
 

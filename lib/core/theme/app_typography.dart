@@ -119,4 +119,20 @@ abstract final class AppTypography {
 
   static TextStyle link({Color color = AppColors.primary}) =>
       _inter(12, FontWeight.w600, color);
+
+  // Booking/visit history status pill ("Upcoming" / "Past" / "Cancelled").
+  static TextStyle statusBadge({required Color color}) => _inter(
+    12,
+    FontWeight.w600,
+    color,
+    height: 16 / 12,
+  ).copyWith(letterSpacing: 0.3);
+
+  // History card date/time row ("Mon, Jul 20 · 9:00 AM").
+  static TextStyle historyRow({Color color = AppColors.textSecondary}) =>
+      _inter(14, FontWeight.w500, color, height: 20 / 14);
+
+  // History card dot separator and meta row ("3 attendees · 1 hr").
+  static TextStyle historyMeta({Color color = AppColors.textDisabled}) =>
+      _inter(12, FontWeight.w500, color, height: 16 / 12);
 }

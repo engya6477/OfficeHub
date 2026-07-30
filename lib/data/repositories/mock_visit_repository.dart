@@ -44,6 +44,22 @@ class MockVisitRepository implements VisitRepository {
         createdAt: now.subtract(const Duration(days: 6)),
       ),
     );
+    // Cancelled visit, so history shows both a past and a cancelled
+    // record out of the box, matching the Figma history frame.
+    _visits.add(
+      Visit(
+        id: _uuid.v4(),
+        employeeId: 'emp-1',
+        visitorName: 'Layla Fahad',
+        visitorPhone: '+966 54 222 1188',
+        visitDate: today.subtract(const Duration(days: 5)),
+        arrivalTime: const TimeOfDay(hour: 15, minute: 0),
+        purpose: VisitPurpose.personalVisit,
+        meetingLocation: 'Main Lobby',
+        status: VisitStatus.cancelled,
+        createdAt: now.subtract(const Duration(days: 7)),
+      ),
+    );
   }
 
   @override

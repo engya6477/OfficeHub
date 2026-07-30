@@ -85,7 +85,9 @@ void main() {
       await tester.tap(find.text('History'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Cancelled'), findsOneWidget);
+      // At least one Cancelled badge is visible (the mock repository also
+      // seeds its own cancelled record, so more than one is expected).
+      expect(find.text('Cancelled'), findsAtLeastNWidgets(1));
       expect(find.text('Atlas Room'), findsOneWidget);
     },
   );
@@ -124,7 +126,9 @@ void main() {
       await tester.tap(find.text('History'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Cancelled'), findsOneWidget);
+      // At least one Cancelled badge is visible (the mock repository also
+      // seeds its own cancelled record, so more than one is expected).
+      expect(find.text('Cancelled'), findsAtLeastNWidgets(1));
       expect(find.text('Layla Hassan'), findsOneWidget);
     },
   );

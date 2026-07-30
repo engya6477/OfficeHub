@@ -58,7 +58,7 @@ class Booking {
 
   String get displayStatusLabel {
     if (status == BookingStatus.cancelled) return 'Cancelled';
-    if (isPast) return 'Completed';
+    if (isPast) return 'Past';
     return 'Upcoming';
   }
 

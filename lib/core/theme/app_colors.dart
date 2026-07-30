@@ -38,6 +38,14 @@ abstract final class AppColors {
   static const Color chipBackground = Color(0xFFF3F4F6);
   static const Color disabledFieldBackground = Color(0xFFE2E6E3);
 
+  /// Exact status-badge colors from the Rooms/Visitors history cards.
+  static const Color statusUpcomingBg = Color(0xFFEFF6FF);
+  static const Color statusUpcomingFg = Color(0xFF1447E6);
+  static const Color statusPastBg = Color(0xFFF3F4F6);
+  static const Color statusPastFg = Color(0xFF4A5565);
+  static const Color statusCancelledBg = Color(0xFFFEF2F2);
+  static const Color statusCancelledFg = Color(0xFFC10007);
+
   static const Color onPrimary = Color(0xFFFFFFFF);
 
   /// Diagonal brand-blue gradient used on the splash and sign-in hero.
