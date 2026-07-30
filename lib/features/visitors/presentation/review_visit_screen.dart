@@ -39,6 +39,8 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
               visitId: widget.editingVisitId!,
               visitorName: draft.visitorName,
               visitorPhone: draft.visitorPhone,
+              visitorEmail: draft.visitorEmail,
+              visitorCompany: draft.visitorCompany,
               visitDate: draft.visitDate!,
               arrivalTime: draft.arrivalTime!,
               purpose: draft.purpose!,
@@ -47,6 +49,8 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
           : controller.createVisit(
               visitorName: draft.visitorName,
               visitorPhone: draft.visitorPhone,
+              visitorEmail: draft.visitorEmail,
+              visitorCompany: draft.visitorCompany,
               visitDate: draft.visitDate!,
               arrivalTime: draft.arrivalTime!,
               purpose: draft.purpose!,
@@ -88,10 +92,6 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!isEditing) ...[
-                Text('Step 2 of 2', style: AppTypography.caption()),
-                const SizedBox(height: 4),
-              ],
               Text(
                 isEditing
                     ? 'Make sure everything looks right before saving.'
@@ -101,7 +101,12 @@ class _ReviewVisitScreenState extends State<ReviewVisitScreen> {
               const SizedBox(height: AppSpacing.xl),
               _Section(
                 title: 'Visitor information',
-                rows: {'Name': draft.visitorName, 'Phone': draft.visitorPhone},
+                rows: {
+                  'Name': draft.visitorName,
+                  'Phone': draft.visitorPhone,
+                  'Email': draft.visitorEmail,
+                  'Company': draft.visitorCompany,
+                },
               ),
               const SizedBox(height: AppSpacing.lg),
               _Section(

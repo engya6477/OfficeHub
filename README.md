@@ -26,7 +26,7 @@ This implementation was built for the **OfficeHub Mobile Application Design & Fr
 
 ### Visitor Management
 
-- Register a visitor: name, phone number, visit date, arrival time, purpose, and meeting location.
+- Register a visitor across two steps, matching Figma's "visit1"/"visit2" frames: Step 1 collects visitor information (name, phone number, email, company); Step 2 collects visit details (visit date, arrival time, purpose, meeting location).
 - Review visit details before submitting.
 - View visitor/visit details, including status.
 - View upcoming visits and visit history (including cancelled/past visits).
@@ -54,7 +54,7 @@ All business rules below are enforced in the data layer (`lib/data/repositories/
 
 - Visits cannot be scheduled in the past.
 - Visits can only be scheduled Sunday through Thursday, matching the office's business days (an addition beyond the PDF's explicit visitor rules — see [Assumptions](#assumptions)).
-- Required visitor information (name, phone, date, arrival time, purpose, location) must be completed before submission.
+- Required visitor information (name, phone, email, company, date, arrival time, purpose, location) must be completed before submission.
 - Employees may only manage visitors they created (ownership is checked by employee ID).
 - Visits may only be edited or cancelled before the visitor's arrival time.
 - Cancelled visits remain visible in history.

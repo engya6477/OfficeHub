@@ -20,6 +20,8 @@ class Visit {
     required this.employeeId,
     required this.visitorName,
     required this.visitorPhone,
+    this.visitorEmail,
+    this.visitorCompany,
     required this.visitDate,
     required this.arrivalTime,
     required this.purpose,
@@ -32,6 +34,12 @@ class Visit {
   final String employeeId;
   final String visitorName;
   final String visitorPhone;
+
+  /// Collected in Step 1 of the registration flow alongside name/phone.
+  /// Nullable so pre-existing visits (seeded before this field existed)
+  /// remain constructible.
+  final String? visitorEmail;
+  final String? visitorCompany;
   final DateTime visitDate;
   final TimeOfDay arrivalTime;
   final VisitPurpose purpose;
@@ -61,6 +69,8 @@ class Visit {
   Visit copyWith({
     String? visitorName,
     String? visitorPhone,
+    String? visitorEmail,
+    String? visitorCompany,
     DateTime? visitDate,
     TimeOfDay? arrivalTime,
     VisitPurpose? purpose,
@@ -72,6 +82,8 @@ class Visit {
       employeeId: employeeId,
       visitorName: visitorName ?? this.visitorName,
       visitorPhone: visitorPhone ?? this.visitorPhone,
+      visitorEmail: visitorEmail ?? this.visitorEmail,
+      visitorCompany: visitorCompany ?? this.visitorCompany,
       visitDate: visitDate ?? this.visitDate,
       arrivalTime: arrivalTime ?? this.arrivalTime,
       purpose: purpose ?? this.purpose,

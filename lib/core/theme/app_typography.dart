@@ -59,6 +59,10 @@ abstract final class AppTypography {
   static TextStyle caption({Color color = AppColors.textMutedAlt}) =>
       _outfit(12, FontWeight.w400, color);
 
+  // Register Visit step progress label ("Step 1 of 2").
+  static TextStyle stepLabel({Color color = AppColors.textDisabled}) =>
+      _inter(12, FontWeight.w500, color);
+
   static TextStyle helper({Color color = AppColors.textPrimary}) =>
       _outfit(12, FontWeight.w400, color);
 

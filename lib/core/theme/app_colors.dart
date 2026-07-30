@@ -35,6 +35,10 @@ abstract final class AppColors {
   static const Color iconMuted = Color(0xFF5B5E5C);
   static const Color iconDark = Color(0xFF0E0F0E);
 
+  /// Exact stroke color of the visit-details selector icons (calendar,
+  /// clock, document-text, location-tick) on the Register Visit steps.
+  static const Color iconFieldStrong = Color(0xFF171717);
+
   static const Color chipBackground = Color(0xFFF3F4F6);
   static const Color disabledFieldBackground = Color(0xFFE2E6E3);
 

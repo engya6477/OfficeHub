@@ -12,6 +12,8 @@ abstract final class AppIcons {
   static const lock = '$_base/lock.svg';
   static const calendar = '$_base/calendar.svg';
   static const clock = '$_base/clock.svg';
+  static const documentText = '$_base/document_text.svg';
+  static const locationTick = '$_base/location_tick.svg';
 
   static const navHome = '$_base/nav_home.svg';
   static const navRooms = '$_base/nav_rooms.svg';
