@@ -3,10 +3,12 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_time_format.dart';
 import '../../../core/widgets/app_avatar.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../data/mock/mock_seed.dart';
 import '../../../data/repositories/room_repository.dart';
 import '../../profile/presentation/profile_screen.dart';
@@ -65,10 +67,9 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Iconsax.search_normal,
-                      size: 20,
-                      color: AppColors.textMutedAlt,
+                    const AppIcon(
+                      AppIcons.searchNormal,
+                      color: AppColors.iconMuted,
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Expanded(
@@ -77,10 +78,9 @@ class HomeScreen extends StatelessWidget {
                         style: AppTypography.bodyPlaceholder(),
                       ),
                     ),
-                    const Icon(
-                      Iconsax.microphone_2,
-                      size: 20,
-                      color: AppColors.textMutedAlt,
+                    const AppIcon(
+                      AppIcons.microphone2,
+                      color: AppColors.iconMuted,
                     ),
                   ],
                 ),

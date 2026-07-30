@@ -3,9 +3,11 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_time_format.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/status_badge.dart';
 import '../../../data/models/booking.dart';
@@ -66,10 +68,9 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Iconsax.search_normal,
-                        size: 20,
-                        color: AppColors.textMutedAlt,
+                      const AppIcon(
+                        AppIcons.searchNormal,
+                        color: AppColors.iconMuted,
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
@@ -78,10 +79,9 @@ class _RoomsTabScreenState extends State<RoomsTabScreen> {
                           style: AppTypography.bodyPlaceholder(),
                         ),
                       ),
-                      const Icon(
-                        Iconsax.microphone_2,
-                        size: 20,
-                        color: AppColors.textMutedAlt,
+                      const AppIcon(
+                        AppIcons.microphone2,
+                        color: AppColors.iconMuted,
                       ),
                     ],
                   ),

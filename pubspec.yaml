@@ -38,6 +38,7 @@ dependencies:
   iconsax_flutter: ^1.0.1
   intl: ^0.20.3
   uuid: ^4.6.0
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   # Onboarding illustrations exported directly from the Figma file.
   assets:
     - assets/images/
+    - assets/icons/
 
   # Outfit and Inter (the two typefaces used throughout the Figma file) are
   # bundled as variable fonts so the app renders correctly offline, matching

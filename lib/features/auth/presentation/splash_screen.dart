@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/app_icon.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.onFinished});
@@ -35,20 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 80,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: AppColors.onPrimary.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(AppRadius.xl),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      blurRadius: 0,
-                      spreadRadius: 1,
-                    ),
-                  ],
                 ),
-                child: const Icon(
-                  Iconsax.calendar_1,
-                  color: AppColors.primary,
+                child: const AppIcon(
+                  AppIcons.splashLogo,
                   size: 40,
+                  color: AppColors.onPrimary,
                 ),
               ),
               const SizedBox(height: AppSpacing.xxl),

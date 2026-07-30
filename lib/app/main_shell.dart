@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../core/theme/app_icons.dart';
 import '../core/widgets/floating_bottom_nav.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/rooms/presentation/rooms_tab_screen.dart';
@@ -29,9 +29,9 @@ class _MainShellState extends State<MainShell> {
       body: IndexedStack(index: _index, children: tabs),
       bottomNavigationBar: FloatingBottomNav(
         items: const [
-          BottomNavItem(icon: Iconsax.home_2, label: 'Home'),
-          BottomNavItem(icon: Iconsax.calendar_1, label: 'Rooms'),
-          BottomNavItem(icon: Iconsax.profile_2user, label: 'Visitors'),
+          BottomNavItem(asset: AppIcons.navHome, label: 'Home'),
+          BottomNavItem(asset: AppIcons.navRooms, label: 'Rooms'),
+          BottomNavItem(asset: AppIcons.navVisitors, label: 'Visitors'),
         ],
         currentIndex: _index,
         onTap: _goToTab,

@@ -30,6 +30,11 @@ abstract final class AppColors {
   static const Color textDisabled = Color(0xFF99A1AF);
   static const Color placeholder = Color(0xFFAEB4B0);
 
+  /// Exact stroke color of the outline icons (search, mic, lock, eye,
+  /// calendar, clock, ...) as exported from Figma.
+  static const Color iconMuted = Color(0xFF5B5E5C);
+  static const Color iconDark = Color(0xFF0E0F0E);
+
   static const Color chipBackground = Color(0xFFF3F4F6);
   static const Color disabledFieldBackground = Color(0xFFE2E6E3);
 

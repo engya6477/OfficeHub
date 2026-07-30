@@ -3,10 +3,12 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_time_format.dart';
 import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../data/models/meeting_room.dart';
 import '../../../data/models/room_facility.dart';
 import '../../../data/repositories/room_repository.dart';
@@ -299,10 +301,7 @@ class _RoomPhotoHeaderState extends State<_RoomPhotoHeader> {
             left: AppSpacing.lg,
             child: SafeArea(
               bottom: false,
-              child: _PhotoIconButton(
-                icon: Iconsax.arrow_left_2,
-                onTap: () => Navigator.of(context).pop(),
-              ),
+              child: _PhotoIconButton(onTap: () => Navigator.of(context).pop()),
             ),
           ),
           if (photoCount > 1) ...[
@@ -356,9 +355,8 @@ class _RoomPhotoHeaderState extends State<_RoomPhotoHeader> {
 }
 
 class _PhotoIconButton extends StatelessWidget {
-  const _PhotoIconButton({required this.icon, required this.onTap});
+  const _PhotoIconButton({required this.onTap});
 
-  final IconData icon;
   final VoidCallback onTap;
 
   @override
@@ -369,10 +367,16 @@ class _PhotoIconButton extends StatelessWidget {
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: onTap,
-        child: SizedBox(
+        child: const SizedBox(
           width: 40,
           height: 40,
-          child: Icon(icon, size: 20, color: AppColors.onPrimary),
+          child: Center(
+            child: AppIcon(
+              AppIcons.arrowLeft,
+              size: 20,
+              color: AppColors.onPrimary,
+            ),
+          ),
         ),
       ),
     );

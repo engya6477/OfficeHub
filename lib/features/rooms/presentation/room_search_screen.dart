@@ -3,8 +3,11 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/app_back_button.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../data/repositories/room_repository.dart';
 import 'booking_criteria_screen.dart';
@@ -70,7 +73,10 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(title: const Text('Search')),
+      appBar: AppBar(
+        leading: const AppBackButton(),
+        title: const Text('Search'),
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,18 +99,21 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
                             vertical: AppSpacing.sm,
                           ),
                           hintText: 'Search any Room',
-                          prefixIcon: const Icon(
-                            Iconsax.search_normal,
-                            size: 20,
-                            color: AppColors.textMutedAlt,
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: AppIcon(
+                              AppIcons.searchNormal,
+                              size: 20,
+                              color: AppColors.iconMuted,
+                            ),
                           ),
                           suffixIcon: IconButton(
-                            icon: Icon(
-                              Iconsax.microphone_2,
+                            icon: AppIcon(
+                              AppIcons.microphone2,
                               size: 20,
                               color: _isListening
                                   ? AppColors.primary
-                                  : AppColors.textMutedAlt,
+                                  : AppColors.iconMuted,
                             ),
                             onPressed: _startVoiceSearch,
                           ),
@@ -122,10 +131,11 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(AppRadius.sm),
                         onTap: _openFilters,
-                        child: const Icon(
-                          Iconsax.filter,
-                          color: AppColors.onPrimary,
-                          size: 24,
+                        child: const Center(
+                          child: AppIcon(
+                            AppIcons.filter,
+                            color: AppColors.onPrimary,
+                          ),
                         ),
                       ),
                     ),
@@ -154,10 +164,10 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
                   children: _recentSearches
                       .map(
                         (term) => Chip(
-                          avatar: const Icon(
-                            Iconsax.clock,
+                          avatar: const AppIcon(
+                            AppIcons.clock,
                             size: 16,
-                            color: AppColors.textMutedAlt,
+                            color: AppColors.iconMuted,
                           ),
                           label: Text(term, style: AppTypography.body()),
                           onDeleted: () =>
@@ -245,8 +255,8 @@ class _VoiceSearchSheet extends StatelessWidget {
                 color: AppColors.primarySurface,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Iconsax.microphone_2,
+              child: const AppIcon(
+                AppIcons.microphone2,
                 size: 40,
                 color: AppColors.primary,
               ),

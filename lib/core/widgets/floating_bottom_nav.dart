@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+import 'app_icon.dart';
 
 class BottomNavItem {
-  const BottomNavItem({required this.icon, required this.label});
+  const BottomNavItem({required this.asset, required this.label});
 
-  final IconData icon;
+  /// Path to the exact SVG icon exported from Figma for this nav item.
+  final String asset;
   final String label;
 }
 
@@ -72,7 +74,7 @@ class FloatingBottomNav extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(item.icon, size: 22, color: color),
+                        AppIcon(item.asset, size: 22, color: color),
                         const SizedBox(height: AppSpacing.xs),
                         Text(
                           item.label,

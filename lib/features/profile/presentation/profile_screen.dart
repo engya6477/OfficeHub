@@ -3,9 +3,11 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../data/mock/mock_seed.dart';
 import '../../auth/application/auth_controller.dart';
 
@@ -43,8 +45,8 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(
-                          Iconsax.arrow_left_2,
+                        icon: const AppIcon(
+                          AppIcons.arrowLeft,
                           color: AppColors.onPrimary,
                         ),
                       ),
